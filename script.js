@@ -1,48 +1,62 @@
-// 🌗 Theme Toggle (Light/Dark vibes)
-let darkMode = true;
-function toggleTheme() {
-  darkMode = !darkMode;
-  document.body.style.backgroundColor = darkMode ? "#000" : "#fff";
-  document.body.style.color = darkMode ? "#fff" : "#000";
-}
-
-// 🧠 Modal Logic
-function openModal() {
-  document.getElementById('joinModal').style.display = 'flex';
-}
-
-function closeModal() {
-  document.getElementById('joinModal').style.display = 'none';
-}
-
-// 📜 Cult Quotes
-const quotes = [
-  "“Divine ink flows only through devotion.”",
-  "“In the absence of color, shadows reveal truth.”",
-  "“The blade of story slices deeper than steel.”",
-  "“Manga panels are the scriptures of our time.”",
-  "“Only those who see with still eyes understand the art.”"
-];
-
-function showQuote() {
-  const random = quotes[Math.floor(Math.random() * quotes.length)];
-  document.getElementById('quote-box').textContent = random;
-}
-
-// 🎵 Background Music Control (Autoplays by default)
-const bgMusic = document.getElementById('bgMusic');
-bgMusic.volume = 0.3;
-
-// 🧊 Optional: Sakura Petal Animation (Pure flex)
-document.addEventListener("DOMContentLoaded", () => {
-  for (let i = 0; i < 25; i++) {
-    const petal = document.createElement("div");
-    petal.classList.add("sakura");
-    document.body.appendChild(petal);
-
-    petal.style.left = Math.random() * 100 + "vw";
-    petal.style.animationDuration = 5 + Math.random() * 5 + "s";
-    petal.style.opacity = Math.random();
-    petal.style.fontSize = Math.random() * 10 + 10 + "px";
+// === 🔊 Music Auto-Play Fix ===
+window.addEventListener('click', () => {
+  const music = document.getElementById("bgMusic");
+  if (music && music.paused) {
+    music.play().catch(() => {});
   }
-});
+}, { once: true });
+
+// === 🎴 Join Modal Logic ===
+function openModal() {
+  document.getElementById("joinModal").style.display = "flex";
+}
+function closeModal() {
+  document.getElementById("joinModal").style.display = "none";
+}
+
+// === 🌗 Theme Toggle ===
+function toggleTheme() {
+  document.body.classList.toggle("light-mode");
+}
+
+// === 🧠 Random Quotes ===
+const quotes = [
+  "“Ink speaks louder than words.”",
+  "“The void between panels hides the truth.”",
+  "“A single frame holds a thousand fates.”",
+  "“Those who scroll too fast miss the divine.”",
+  "“The margins are sacred.”"
+];
+function showQuote() {
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById("quote-box").textContent = quote;
+}
+
+// === 🖼️ Lightbox Effect ===
+function enlarge(img) {
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.background = "rgba(0,0,0,0.9)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = 3000;
+
+  const bigImg = document.createElement("img");
+  bigImg.src = img.src;
+  bigImg.style.maxWidth = "90%";
+  bigImg.style.maxHeight = "90%";
+  bigImg.style.borderRadius = "1rem";
+  bigImg.style.boxShadow = "0 0 30px #fff";
+
+  overlay.appendChild(bigImg);
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener("click", () => {
+    document.body.removeChild(overlay);
+  });
+    }
