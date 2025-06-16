@@ -32,7 +32,11 @@ nav {
   z-index: 1000;
 }
 nav .logo {
-  width: 50px;
+  width: 60px;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 nav ul {
   display: flex;
