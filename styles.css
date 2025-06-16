@@ -215,3 +215,26 @@ body.light-mode .hero-content {
     width: 100px;
   }
 }
+
+/* 🗣️ Chat Section Styling */
+.chat-section {
+  padding: 60px 20px;
+  background: linear-gradient(to bottom right, #1a1a1a, #000000);
+  color: white;
+  text-align: center;
+}
+
+.chat-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+}
+
+.chat-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0 0 30px rgba(255, 0, 100, 0.3);
+}
