@@ -3,244 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cult of Panels ✧ 2.0</title>
+  <title>CULT OF PANELS ✦ Ascension</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Noto Serif JP', serif;
-      background: url('https://i.ibb.co/kJKjJ9m/night-anime-bg.jpg') center/cover no-repeat;
-      color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      transition: 0.3s ease;
-    }
-
-    .light-mode {
-      background: #fff;
-      color: #111;
-    }
-
-    header {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-    }
-
-    header h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      color: #ff4ecb;
-      text-shadow: 2px 2px 8px #ff009d;
-    }
-
-    .btn {
-      padding: 15px 25px;
-      margin: 15px;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 30px;
-      background-color: #ff4ecb;
-      color: #000;
-      box-shadow: 0 0 10px #ff4ecb;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-    }
-
-    .controls {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    #quote-box {
-      text-align: center;
-      margin-top: 20px;
-      font-style: italic;
-      color: #ffddf7;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #aaa;
-    }
-
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    .modal-content {
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 15px;
-      color: #fff;
-      text-align: center;
-      max-width: 90%;
-    }
-
-    .close-btn {
-      margin-top: 15px;
-      background: #ff4ecb;
-      color: #000;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @media(max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      .btn {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Noto+Serif+JP&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <canvas id="sakuraCanvas"></canvas>
+  <!-- Video Background -->
+  <video autoplay muted loop id="bg-video">
+    <source src="assets/bg.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
 
-  <header>
-    <h1>CULT OF PANELS</h1>
-    <p>Created by Prajval & the mysterious Kazuya...</p>
-  </header>
-
-  <div class="controls">
-    <button class="btn" onclick="openModal()">Join the Cult</button>
-    <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
-    <button class="btn" onclick="showQuote()">Reveal a Cult Quote</button>
+  <!-- Cult Logo -->
+  <div class="logo-container">
+    <img src="assets/cult-seal.png" alt="Cult Seal" class="cult-logo" />
   </div>
 
-  <div id="quote-box">“The panels speak truths mortals ignore.”</div>
+  <!-- Header -->
+  <header>
+    <h1>CULT OF PANELS</h1>
+    <p>Where ink becomes faith. Welcome, chosen one.</p>
+  </header>
 
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="toggleTheme()">🌗 Toggle Theme</button>
+    <button onclick="openModal()">🧠 Join the Cult</button>
+    <button onclick="showQuote()">📜 Reveal Quote</button>
+  </div>
+
+  <!-- Quotes -->
+  <div id="quote-box">“Divine ink flows only through devotion.”</div>
+
+  <!-- Scrollable Manga Panels -->
+  <section class="panel-gallery">
+    <img src="assets/panels/panel1.jpg" alt="Panel 1">
+    <img src="assets/panels/panel2.jpg" alt="Panel 2">
+    <img src="assets/panels/panel3.jpg" alt="Panel 3">
+    <!-- Add more panels as needed -->
+  </section>
+
+  <!-- Modal -->
   <div class="modal" id="joinModal">
     <div class="modal-content">
-      <h2>Welcome to the Cult.</h2>
-      <p>You have been chosen by the gods of manga and ink. Stay loyal.</p>
-      <button class="close-btn" onclick="closeModal()">I Accept</button>
+      <h2>Welcome, Devotee</h2>
+      <p>You are now one with the Cult of Panels. Turn the page wisely.</p>
+      <button onclick="closeModal()">I Accept</button>
     </div>
   </div>
 
-  <footer>
-    🌙 Aesthetic vibes powered by the Cult of Panels™ • 2025
-  </footer>
-
-  <!-- AUDIO -->
+  <!-- Music -->
   <audio id="bgMusic" autoplay loop>
-    <source src="https://files.catbox.moe/pgv8cg.mp3" type="audio/mpeg" />
+    <source src="assets/bg-music.mp3" type="audio/mpeg" />
   </audio>
 
-  <script>
-    // Sakura Petals
-    const canvas = document.getElementById("sakuraCanvas");
-    const ctx = canvas.getContext("2d");
-    let petals = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    function createPetal() {
-      return {
-        x: Math.random() * canvas.width,
-        y: -20,
-        radius: Math.random() * 4 + 2,
-        speedY: Math.random() * 2 + 1,
-        speedX: Math.random() * 1 - 0.5,
-        opacity: Math.random() * 0.5 + 0.3
-      };
-    }
-
-    function drawPetals() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255, 182, 193, 0.8)";
-      petals.forEach(p => {
-        ctx.beginPath();
-        ctx.globalAlpha = p.opacity;
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-    }
-
-    function updatePetals() {
-      for (let i = 0; i < petals.length; i++) {
-        petals[i].y += petals[i].speedY;
-        petals[i].x += petals[i].speedX;
-        if (petals[i].y > canvas.height) {
-          petals[i] = createPetal();
-          petals[i].y = 0;
-        }
-      }
-    }
-
-    function animatePetals() {
-      drawPetals();
-      updatePetals();
-      requestAnimationFrame(animatePetals);
-    }
-
-    for (let i = 0; i < 60; i++) petals.push(createPetal());
-    animatePetals();
-
-    // Modal Logic
-    function openModal() {
-      document.getElementById("joinModal").style.display = "flex";
-    }
-    function closeModal() {
-      document.getElementById("joinModal").style.display = "none";
-    }
-
-    // Theme Toggle
-    function toggleTheme() {
-      document.body.classList.toggle("light-mode");
-    }
-
-    // Quote Logic
-    const quotes = [
-      "“The panels speak truths mortals ignore.”",
-      "“In the ink, we find meaning.”",
-      "“Pages turn, but the cult remains.”",
-      "“From shadows of line art, we rise.”",
-      "“Only the chosen can read between the panels.”"
-    ];
-
-    function showQuote() {
-      const box = document.getElementById("quote-box");
-      box.innerText = quotes[Math.floor(Math.random() * quotes.length)];
-    }
-  </script>
+  <!-- External JS -->
+  <script src="script.js"></script>
 </body>
 </html>
