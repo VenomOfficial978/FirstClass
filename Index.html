@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cult of Panels ✧</title>
+
+  <!-- Anime Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Cult Styling */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: url('https://i.ibb.co/kJKjJ9m/night-anime-bg.jpg') no-repeat center center/cover;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #ff4ecb;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      color: #ff4ecb;
+      text-shadow: 2px 2px 10px #ff009d;
+    }
+
+    .typewriter {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #ddd;
+      height: 30px;
+    }
+
+    #join-btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      background: #ff4ecb;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff4ecb;
+      transition: 0.3s;
+    }
+
+    #join-btn:hover {
+      background: #fff;
+      color: #ff009d;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .controls button {
+      background: none;
+      border: 2px solid #ff4ecb;
+      padding: 8px 15px;
+      color: #ff4ecb;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .controls button:hover {
+      background: #ff4ecb;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="sakuraCanvas"></canvas>
+
+  <div class="controls">
+    <button onclick="toggleMusic()">🎵 Toggle Music</button>
+  </div>
+
+  <header>
+    <h1>CULT OF PANELS</h1>
+    <p id="typewriter" class="typewriter">A manga cult built by Prajval & shadow co-founder Kazuya...</p>
+  </header>
+
+  <main style="text-align:center; margin-top:100px; z-index: 1; position: relative;">
+    <button id="join-btn" onclick="alert('You are now one of us.')">Join the Cult</button>
+  </main>
+
+  <footer>
+    ⛩️ Welcome to the sacred scrolls of panels | © 2025 Cult of Panels
+  </footer>
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://files.catbox.moe/pgv8cg.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // 🌸 Sakura Petals
+    const canvas = document.getElementById("sakuraCanvas");
+    const ctx = canvas.getContext("2d");
+    let petals = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createPetal() {
+      return {
+        x: Math.random() * canvas.width,
+        y: -20,
+        radius: Math.random() * 4 + 2,
+        speedY: Math.random() * 2 + 1,
+        speedX: Math.random() * 1 - 0.5,
+        opacity: Math.random() * 0.5 + 0.3
+      };
+    }
+
+    function drawPetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(255, 182, 193, 0.8)";
+      petals.forEach(p => {
+        ctx.beginPath();
+        ctx.globalAlpha = p.opacity;
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function updatePetals() {
+      for (let i = 0; i < petals.length; i++) {
+        petals[i].y += petals[i].speedY;
+        petals[i].x += petals[i].speedX;
+        if (petals[i].y > canvas.height) {
+          petals[i] = createPetal();
+          petals[i].y = 0;
+        }
+      }
+    }
+
+    function animatePetals() {
+      drawPetals();
+      updatePetals();
+      requestAnimationFrame(animatePetals);
+    }
+
+    for (let i = 0; i < 60; i++) {
+      petals.push(createPetal());
+    }
+    animatePetals();
+
+    // 🎵 Music Logic
+    const music = document.getElementById("bgMusic");
+    let isPlaying = false;
+    function toggleMusic() {
+      if (isPlaying) {
+        music.pause();
+      } else {
+        music.play();
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // ⌨️ Typewriter
+    const typeTarget = document.getElementById("typewriter");
+    const originalText = typeTarget.innerText;
+    typeTarget.innerText = "";
+    let charIndex = 0;
+    function typeEffect() {
+      if (charIndex < originalText.length) {
+        typeTarget.innerText += originalText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 50);
+      }
+    }
+    typeEffect();
+  </script>
+
+</body>
+  </html>
