@@ -1,101 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cult of Panels ✧</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cult of Panels ✧ 2.0</title>
 
-  <!-- Anime Font -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
   <style>
-    /* Cult Styling */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Noto Serif JP', serif;
-      background: url('https://i.ibb.co/kJKjJ9m/night-anime-bg.jpg') no-repeat center center/cover;
+      background: url('https://i.ibb.co/kJKjJ9m/night-anime-bg.jpg') center/cover no-repeat;
       color: #fff;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
       position: relative;
+      transition: 0.3s ease;
+    }
+
+    .light-mode {
+      background: #fff;
+      color: #111;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
       text-align: center;
-      border-bottom: 2px solid #ff4ecb;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
     }
 
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.8rem;
+      font-size: 3rem;
       color: #ff4ecb;
-      text-shadow: 2px 2px 10px #ff009d;
+      text-shadow: 2px 2px 8px #ff009d;
     }
 
-    .typewriter {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #ddd;
-      height: 30px;
-    }
-
-    #join-btn {
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      background: #ff4ecb;
-      border: none;
-      color: #000;
+    .btn {
+      padding: 15px 25px;
+      margin: 15px;
+      font-size: 1rem;
       font-weight: bold;
+      border: none;
       border-radius: 30px;
+      background-color: #ff4ecb;
+      color: #000;
+      box-shadow: 0 0 10px #ff4ecb;
       cursor: pointer;
-      box-shadow: 0 0 20px #ff4ecb;
-      transition: 0.3s;
+      transition: transform 0.2s ease;
     }
 
-    #join-btn:hover {
-      background: #fff;
-      color: #ff009d;
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #quote-box {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      color: #ffddf7;
     }
 
     footer {
       position: absolute;
-      bottom: 15px;
+      bottom: 10px;
       width: 100%;
       text-align: center;
       font-size: 0.8rem;
       color: #aaa;
     }
 
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      color: #fff;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #ff4ecb;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
     canvas {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0;
       pointer-events: none;
       z-index: 0;
     }
 
-    .controls {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 999;
-    }
-
-    .controls button {
-      background: none;
-      border: 2px solid #ff4ecb;
-      padding: 8px 15px;
-      color: #ff4ecb;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 10px;
-    }
-
-    .controls button:hover {
-      background: #ff4ecb;
-      color: #000;
+    @media(max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .btn {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -103,30 +129,38 @@
 
   <canvas id="sakuraCanvas"></canvas>
 
-  <div class="controls">
-    <button onclick="toggleMusic()">🎵 Toggle Music</button>
-  </div>
-
   <header>
     <h1>CULT OF PANELS</h1>
-    <p id="typewriter" class="typewriter">A manga cult built by Prajval & shadow co-founder Kazuya...</p>
+    <p>Created by Prajval & the mysterious Kazuya...</p>
   </header>
 
-  <main style="text-align:center; margin-top:100px; z-index: 1; position: relative;">
-    <button id="join-btn" onclick="alert('You are now one of us.')">Join the Cult</button>
-  </main>
+  <div class="controls">
+    <button class="btn" onclick="openModal()">Join the Cult</button>
+    <button class="btn" onclick="toggleTheme()">Toggle Theme</button>
+    <button class="btn" onclick="showQuote()">Reveal a Cult Quote</button>
+  </div>
+
+  <div id="quote-box">“The panels speak truths mortals ignore.”</div>
+
+  <div class="modal" id="joinModal">
+    <div class="modal-content">
+      <h2>Welcome to the Cult.</h2>
+      <p>You have been chosen by the gods of manga and ink. Stay loyal.</p>
+      <button class="close-btn" onclick="closeModal()">I Accept</button>
+    </div>
+  </div>
 
   <footer>
-    ⛩️ Welcome to the sacred scrolls of panels | © 2025 Cult of Panels
+    🌙 Aesthetic vibes powered by the Cult of Panels™ • 2025
   </footer>
 
-  <!-- Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://files.catbox.moe/pgv8cg.mp3" type="audio/mpeg">
+  <!-- AUDIO -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://files.catbox.moe/pgv8cg.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
-    // 🌸 Sakura Petals
+    // Sakura Petals
     const canvas = document.getElementById("sakuraCanvas");
     const ctx = canvas.getContext("2d");
     let petals = [];
@@ -178,37 +212,35 @@
       requestAnimationFrame(animatePetals);
     }
 
-    for (let i = 0; i < 60; i++) {
-      petals.push(createPetal());
-    }
+    for (let i = 0; i < 60; i++) petals.push(createPetal());
     animatePetals();
 
-    // 🎵 Music Logic
-    const music = document.getElementById("bgMusic");
-    let isPlaying = false;
-    function toggleMusic() {
-      if (isPlaying) {
-        music.pause();
-      } else {
-        music.play();
-      }
-      isPlaying = !isPlaying;
+    // Modal Logic
+    function openModal() {
+      document.getElementById("joinModal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("joinModal").style.display = "none";
     }
 
-    // ⌨️ Typewriter
-    const typeTarget = document.getElementById("typewriter");
-    const originalText = typeTarget.innerText;
-    typeTarget.innerText = "";
-    let charIndex = 0;
-    function typeEffect() {
-      if (charIndex < originalText.length) {
-        typeTarget.innerText += originalText.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeEffect, 50);
-      }
+    // Theme Toggle
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
     }
-    typeEffect();
+
+    // Quote Logic
+    const quotes = [
+      "“The panels speak truths mortals ignore.”",
+      "“In the ink, we find meaning.”",
+      "“Pages turn, but the cult remains.”",
+      "“From shadows of line art, we rise.”",
+      "“Only the chosen can read between the panels.”"
+    ];
+
+    function showQuote() {
+      const box = document.getElementById("quote-box");
+      box.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    }
   </script>
-
 </body>
-  </html>
+</html>
