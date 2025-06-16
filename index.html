@@ -1,15 +1,75 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cult of Panels</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* 🩵 Enhanced Bottom Buttons Style */
+    .bottom-shortcuts {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 1500;
+      animation: slideUp 1s ease-out 1;
+    }
+
+    .shortcut-btn {
+      background: #1f1f2f;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 12px #a29bfe88, 0 0 6px #6c5ce766;
+      transition: all 0.3s ease;
+      animation: floatPulse 3s ease-in-out infinite;
+    }
+
+    .shortcut-btn:hover {
+      background: #a29bfe;
+      color: #000;
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #a29bfecc;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, 0%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes floatPulse {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- 🌸 Sakura Canvas -->
-  <canvas id="sakuraCanvas"></canvas>  <!-- 🔥 Background Music --><audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
 
-  <!-- ⛩️ NAVIGATION BAR -->  <nav>
+  <!-- 🌸 Sakura Canvas -->
+  <canvas id="sakuraCanvas"></canvas>
+
+  <!-- 🔥 Background Music -->
+  <audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
+
+  <!-- ⛩️ NAVIGATION BAR -->
+  <nav>
     <img src="assets/cult-seal.png" alt="Cult Seal" class="logo" />
     <ul>
       <li><a href="#home">Home</a></li>
@@ -19,7 +79,10 @@
       <li><a href="#cult-chat">Chat</a></li>
     </ul>
     <button onclick="toggleTheme()">🌓</button>
-  </nav>  <!-- 🪬 HOME SECTION -->  <section id="home" class="hero">
+  </nav>
+
+  <!-- 🪬 HOME SECTION -->
+  <section id="home" class="hero">
     <video autoplay muted loop id="bgVideo">
       <source src="assets/bg.mp4" type="video/mp4" />
     </video>
@@ -30,23 +93,35 @@
       <button onclick="showQuote()">Enlighten Me</button>
       <p id="quote-box">“The page is not silent. It whispers purpose.”</p>
     </div>
-  </section>  <!-- 📜 MANIFESTO SECTION -->  <section id="manifesto">
+  </section>
+
+  <!-- 📜 MANIFESTO SECTION -->
+  <section id="manifesto">
     <h2>Our Manifesto</h2>
     <p>
       We are the watchers of the panel, the seekers of soul lines, the readers of eternal ink. 
       We are led by Prajval and the shadows of forgotten artists.
     </p>
-  </section>  <!-- 🖼️ PANELS GALLERY -->  <section id="panels">
+  </section>
+
+  <!-- 🖼️ PANELS GALLERY -->
+  <section id="panels">
     <h2>Divine Panels</h2>
     <div class="panel-grid">
       <img src="assets/panels/panel1.jpg" onclick="enlarge(this)">
       <img src="assets/panels/panel2.jpg" onclick="enlarge(this)">
       <img src="assets/panels/panel3.jpg" onclick="enlarge(this)">
     </div>
-  </section>  <!-- 🙌 JOIN SECTION -->  <section id="join">
+  </section>
+
+  <!-- 🙌 JOIN SECTION -->
+  <section id="join">
     <h2>Join Our Sacred Path</h2>
     <button onclick="openModal()">Begin Your Journey</button>
-  </section>  <!-- 🗣️ EMBEDDED CHAT SHRINE -->  <section id="cult-chat" class="chat-section">
+  </section>
+
+  <!-- 🗣️ EMBEDDED CHAT SHRINE -->
+  <section id="cult-chat" class="chat-section">
     <h2>Speak to the Oracles</h2>
     <div class="chat-frame">
       <iframe 
@@ -57,7 +132,10 @@
         allow="microphone; camera">
       </iframe>
     </div>
-  </section>  <!-- 🪄 MODAL FORM -->  <div id="joinModal" class="modal">
+  </section>
+
+  <!-- 🪄 MODAL FORM -->
+  <div id="joinModal" class="modal">
     <div class="modal-content">
       <span onclick="closeModal()" class="close">&times;</span>
       <h2>Enter the Cult</h2>
@@ -67,7 +145,17 @@
         <button type="submit">Offer Your Soul</button>
       </form>
     </div>
-  </div>  <!-- 💻 SCRIPT -->  <script src="script.js"></script>  <script>
+  </div>
+
+  <!-- 🌸 Bottom Navigation Shortcuts -->
+  <div class="bottom-shortcuts">
+    <a href="#home" class="shortcut-btn">Home</a>
+    <a href="#manifesto" class="shortcut-btn">Manifesto</a>
+  </div>
+
+  <!-- 💻 SCRIPT -->
+  <script src="script.js"></script>
+  <script>
     // 🌸 Sakura Animation
     const canvas = document.getElementById('sakuraCanvas');
     const ctx = canvas.getContext('2d');
@@ -120,11 +208,6 @@
 
     petals = Array.from({ length: petalCount }, () => new Petal());
     animateSakura();
-
-    <!-- 🌸 Bottom Navigation Shortcuts -->
-<div class="bottom-shortcuts">
-  <a href="#home" class="shortcut-btn">Home</a>
-  <a href="#manifesto" class="shortcut-btn">Manifesto</a>
-</div>
-  </script></body>
+  </script>
+</body>
 </html>
