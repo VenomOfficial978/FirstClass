@@ -19,6 +19,7 @@
       <li><a href="#manifesto">Manifesto</a></li>
       <li><a href="#panels">Panels</a></li>
       <li><a href="#join">Join</a></li>
+      <li><a href="#cult-chat">Chat</a></li>
     </ul>
     <button onclick="toggleTheme()">🌓</button>
   </nav>
@@ -62,6 +63,20 @@
     <button onclick="openModal()">Begin Your Journey</button>
   </section>
 
+  <!-- 🗣️ EMBEDDED CHAT SHRINE -->
+  <section id="cult-chat" class="chat-section">
+    <h2>Speak to the Oracles</h2>
+    <div class="chat-frame">
+      <iframe 
+        src="https://tawk.to/chat/684fefeeca65351908aab336/1its42f1k" 
+        width="100%" 
+        height="500" 
+        style="border: none;" 
+        allow="microphone; camera">
+      </iframe>
+    </div>
+  </section>
+
   <!-- 🪄 MODAL FORM -->
   <div id="joinModal" class="modal">
     <div class="modal-content">
@@ -77,22 +92,6 @@
 
   <!-- 💻 SCRIPT -->
   <script src="script.js"></script>
-
-  <!-- 🗣️ Tawk.to Chat Integration -->
-  <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-  (function () {
-    var s1 = document.createElement("script"),
-        s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/684fefeeca65351908aab336/1its42f1k';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-  })();
-  </script>
-  <!--End of Tawk.to Script-->
 
 </body>
 </html>
