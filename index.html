@@ -2,65 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CULT OF PANELS ✦ Ascension</title>
-
-  <!-- External CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cult of Panels</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Noto+Serif+JP&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Video Background -->
-  <video autoplay muted loop id="bg-video">
-    <source src="assets/bg.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+  <!-- 🔥 Background Music -->
+  <audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
 
-  <!-- Cult Logo -->
-  <div class="logo-container">
-    <img src="assets/cult-seal.png" alt="Cult Seal" class="cult-logo" />
-  </div>
+  <!-- ⛩️ NAVIGATION BAR -->
+  <nav>
+    <img src="assets/cult-seal.png" alt="Cult Seal" class="logo" />
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#manifesto">Manifesto</a></li>
+      <li><a href="#panels">Panels</a></li>
+      <li><a href="#join">Join</a></li>
+    </ul>
+    <button onclick="toggleTheme()">🌓</button>
+  </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>CULT OF PANELS</h1>
-    <p>Where ink becomes faith. Welcome, chosen one.</p>
-  </header>
-
-  <!-- Controls -->
-  <div class="controls">
-    <button onclick="toggleTheme()">🌗 Toggle Theme</button>
-    <button onclick="openModal()">🧠 Join the Cult</button>
-    <button onclick="showQuote()">📜 Reveal Quote</button>
-  </div>
-
-  <!-- Quotes -->
-  <div id="quote-box">“Divine ink flows only through devotion.”</div>
-
-  <!-- Scrollable Manga Panels -->
-  <section class="panel-gallery">
-    <img src="assets/panels/panel1.jpg" alt="Panel 1">
-    <img src="assets/panels/panel2.jpg" alt="Panel 2">
-    <img src="assets/panels/panel3.jpg" alt="Panel 3">
-    <!-- Add more panels as needed -->
+  <!-- 🪬 HOME SECTION -->
+  <section id="home" class="hero">
+    <video autoplay muted loop id="bgVideo">
+      <source src="assets/bg.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content">
+      <h1>Welcome to the Cult of Panels</h1>
+      <p>A sacred realm where manga breathes and panels speak.</p>
+      <button onclick="openModal()">Join the Cult</button>
+      <button onclick="showQuote()">Enlighten Me</button>
+      <p id="quote-box">“The page is not silent. It whispers purpose.”</p>
+    </div>
   </section>
 
-  <!-- Modal -->
-  <div class="modal" id="joinModal">
+  <!-- 📜 MANIFESTO SECTION -->
+  <section id="manifesto">
+    <h2>Our Manifesto</h2>
+    <p>
+      We are the watchers of the panel, the seekers of soul lines, the readers of eternal ink. 
+      We are led by Prajval and the shadows of forgotten artists.
+    </p>
+  </section>
+
+  <!-- 🖼️ PANELS GALLERY -->
+  <section id="panels">
+    <h2>Divine Panels</h2>
+    <div class="panel-grid">
+      <img src="assets/panels/panel1.jpg" onclick="enlarge(this)">
+      <img src="assets/panels/panel2.jpg" onclick="enlarge(this)">
+      <img src="assets/panels/panel3.jpg" onclick="enlarge(this)">
+    </div>
+  </section>
+
+  <!-- 🙌 JOIN SECTION -->
+  <section id="join">
+    <h2>Join Our Sacred Path</h2>
+    <button onclick="openModal()">Begin Your Journey</button>
+  </section>
+
+  <!-- 🪄 MODAL FORM -->
+  <div id="joinModal" class="modal">
     <div class="modal-content">
-      <h2>Welcome, Devotee</h2>
-      <p>You are now one with the Cult of Panels. Turn the page wisely.</p>
-      <button onclick="closeModal()">I Accept</button>
+      <span onclick="closeModal()" class="close">&times;</span>
+      <h2>Enter the Cult</h2>
+      <form>
+        <input type="text" placeholder="Name (Alias is fine)" />
+        <input type="email" placeholder="Email (fake is okay)" />
+        <button type="submit">Offer Your Soul</button>
+      </form>
     </div>
   </div>
 
-  <!-- Music -->
-  <audio id="bgMusic" autoplay loop>
-    <source src="assets/bg-music.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- External JS -->
+  <!-- 💻 SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>
