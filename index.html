@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,12 +6,10 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- 🌸 Sakura Canvas -->
+  <canvas id="sakuraCanvas"></canvas>  <!-- 🔥 Background Music --><audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
 
-  <!-- 🔥 Background Music -->
-  <audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
-
-  <!-- ⛩️ NAVIGATION BAR -->
-  <nav>
+  <!-- ⛩️ NAVIGATION BAR -->  <nav>
     <img src="assets/cult-seal.png" alt="Cult Seal" class="logo" />
     <ul>
       <li><a href="#home">Home</a></li>
@@ -22,10 +19,7 @@
       <li><a href="#cult-chat">Chat</a></li>
     </ul>
     <button onclick="toggleTheme()">🌓</button>
-  </nav>
-
-  <!-- 🪬 HOME SECTION -->
-  <section id="home" class="hero">
+  </nav>  <!-- 🪬 HOME SECTION -->  <section id="home" class="hero">
     <video autoplay muted loop id="bgVideo">
       <source src="assets/bg.mp4" type="video/mp4" />
     </video>
@@ -36,35 +30,23 @@
       <button onclick="showQuote()">Enlighten Me</button>
       <p id="quote-box">“The page is not silent. It whispers purpose.”</p>
     </div>
-  </section>
-
-  <!-- 📜 MANIFESTO SECTION -->
-  <section id="manifesto">
+  </section>  <!-- 📜 MANIFESTO SECTION -->  <section id="manifesto">
     <h2>Our Manifesto</h2>
     <p>
       We are the watchers of the panel, the seekers of soul lines, the readers of eternal ink. 
       We are led by Prajval and the shadows of forgotten artists.
     </p>
-  </section>
-
-  <!-- 🖼️ PANELS GALLERY -->
-  <section id="panels">
+  </section>  <!-- 🖼️ PANELS GALLERY -->  <section id="panels">
     <h2>Divine Panels</h2>
     <div class="panel-grid">
       <img src="assets/panels/panel1.jpg" onclick="enlarge(this)">
       <img src="assets/panels/panel2.jpg" onclick="enlarge(this)">
       <img src="assets/panels/panel3.jpg" onclick="enlarge(this)">
     </div>
-  </section>
-
-  <!-- 🙌 JOIN SECTION -->
-  <section id="join">
+  </section>  <!-- 🙌 JOIN SECTION -->  <section id="join">
     <h2>Join Our Sacred Path</h2>
     <button onclick="openModal()">Begin Your Journey</button>
-  </section>
-
-  <!-- 🗣️ EMBEDDED CHAT SHRINE -->
-  <section id="cult-chat" class="chat-section">
+  </section>  <!-- 🗣️ EMBEDDED CHAT SHRINE -->  <section id="cult-chat" class="chat-section">
     <h2>Speak to the Oracles</h2>
     <div class="chat-frame">
       <iframe 
@@ -75,10 +57,7 @@
         allow="microphone; camera">
       </iframe>
     </div>
-  </section>
-
-  <!-- 🪄 MODAL FORM -->
-  <div id="joinModal" class="modal">
+  </section>  <!-- 🪄 MODAL FORM -->  <div id="joinModal" class="modal">
     <div class="modal-content">
       <span onclick="closeModal()" class="close">&times;</span>
       <h2>Enter the Cult</h2>
@@ -88,10 +67,58 @@
         <button type="submit">Offer Your Soul</button>
       </form>
     </div>
-  </div>
+  </div>  <!-- 💻 SCRIPT -->  <script src="script.js"></script>  <script>
+    // 🌸 Sakura Animation
+    const canvas = document.getElementById('sakuraCanvas');
+    const ctx = canvas.getContext('2d');
+    let petals = [];
+    const petalCount = 35;
 
-  <!-- 💻 SCRIPT -->
-  <script src="script.js"></script>
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-</body>
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Petal {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.size = Math.random() * 6 + 2;
+        this.speedY = Math.random() * 1 + 0.5;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y > canvas.height || this.x < -50 || this.x > canvas.width + 50) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function animateSakura() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of petals) {
+        p.update();
+        p.draw();
+      }
+      requestAnimationFrame(animateSakura);
+    }
+
+    petals = Array.from({ length: petalCount }, () => new Petal());
+    animateSakura();
+  </script></body>
 </html>
