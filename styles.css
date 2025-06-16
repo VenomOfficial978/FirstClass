@@ -38,6 +38,10 @@ nav .logo {
   object-fit: contain;
   border-radius: 50%;
 }
+nav .logo:hover {
+  transform: rotate(10deg) scale(1.1);
+  transition: all 0.3s ease;
+}
 nav ul {
   display: flex;
   gap: 1rem;
