@@ -1,71 +1,82 @@
-/* Reset & Basics */
+/* ====== GLOBAL RESET & BASE STYLES ====== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body {
+
+html, body {
   font-family: 'Segoe UI', sans-serif;
-  background: #0b0b0c;
-  color: #eee;
-  overflow-x: hidden;
+  background-color: #0f0f1a;
+  color: #f5f5f5;
   scroll-behavior: smooth;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-ul {
-  list-style: none;
+  overflow-x: hidden;
 }
 
-/* Navbar */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* ====== NAVBAR ====== */
 nav {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  width: 100%;
+  background-color: #1a1a2e;
+  color: #fff;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
-nav .logo {
-  width: 60px;
-  height: auto;
-  max-height: 60px;
-  object-fit: contain;
-  border-radius: 50%;
-}
-nav .logo:hover {
-  transform: rotate(10deg) scale(1.1);
-  transition: all 0.3s ease;
-}
+
 nav ul {
+  list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
 }
+
+nav li a {
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
 nav li a:hover {
   color: #a29bfe;
 }
+
+nav .logo {
+  height: 50px;
+  filter: drop-shadow(0 0 5px #a29bfeaa);
+}
+
 nav button {
-  background: transparent;
+  background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+  color: #fff;
 }
 
-/* Hero Section */
+/* ====== HERO SECTION ====== */
 .hero {
-  height: 100vh;
   position: relative;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
+  color: #fff;
+  overflow: hidden;
 }
+
 #bgVideo {
   position: absolute;
   top: 0;
@@ -74,267 +85,178 @@ nav button {
   height: 100%;
   object-fit: cover;
   z-index: -1;
+  filter: brightness(0.6);
 }
+
 .hero-content {
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 2rem;
+  max-width: 700px;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 1rem;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px #6c5ce7aa;
+  animation: fadeIn 2s ease-in;
 }
-.hero-content h1 {
-  font-size: 3rem;
+
+.hero h1 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
 }
-.hero-content p {
-  font-size: 1.2rem;
+
+.hero p {
+  font-size: 1.1rem;
   margin-bottom: 1.5rem;
 }
-.hero-content button {
-  background: #a29bfe;
-  color: #111;
+
+.hero button {
+  background-color: #a29bfe;
+  color: #000;
   border: none;
   padding: 0.75rem 1.5rem;
-  margin: 0 0.5rem;
-  border-radius: 2rem;
-  cursor: pointer;
+  margin: 0.5rem;
+  border-radius: 10px;
   font-weight: bold;
-  transition: 0.2s ease;
-}
-.hero-content button:hover {
-  background: #6c5ce7;
-  color: #fff;
-}
-
-/* Sections */
-section {
-  padding: 5rem 2rem;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-}
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-section p {
-  font-size: 1.1rem;
-}
-
-/* Panel Gallery */
-.panel-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-.panel-grid img {
-  width: 150px;
-  border-radius: 1rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px #a29bfe88;
+  transition: all 0.3s ease;
 }
-.panel-grid img:hover {
+
+.hero button:hover {
+  background-color: #fff;
+  color: #6c5ce7;
   transform: scale(1.05);
 }
 
-/* Modal */
+/* ====== PANEL GRID ====== */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.panel-grid img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #6c5ce7aa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.panel-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #a29bfeaa;
+}
+
+/* ====== JOIN FORM MODAL ====== */
 .modal {
-  display: none;
   position: fixed;
-  z-index: 2000;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(5, 5, 10, 0.8);
+  background: rgba(15, 15, 25, 0.95);
+  display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3000;
+  display: none;
 }
+
 .modal-content {
-  background: #111;
+  background: #1f1f2f;
   padding: 2rem;
   border-radius: 1rem;
+  box-shadow: 0 0 20px #a29bfeaa;
   width: 90%;
   max-width: 400px;
   text-align: center;
-  color: #eee;
 }
+
+.modal-content h2 {
+  margin-bottom: 1.5rem;
+}
+
 .modal-content input {
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.8rem;
-  border-radius: 0.5rem;
+  width: 90%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
   border: none;
+  border-radius: 8px;
+  font-size: 1rem;
 }
+
 .modal-content button {
-  background: #a29bfe;
+  background-color: #a29bfe;
+  color: #000;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2rem;
-  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+.modal-content button:hover {
+  background-color: #fff;
+  color: #6c5ce7;
+}
+
 .close {
   position: absolute;
-  right: 1.2rem;
-  top: 1rem;
+  top: 2rem;
+  right: 2rem;
   font-size: 2rem;
+  color: #fff;
   cursor: pointer;
-  color: #ccc;
 }
 
-/* Theme toggle */
-body.light-mode {
-  background: #fdfdfd;
-  color: #111;
-}
-body.light-mode nav {
-  background: #eee;
-}
-body.light-mode .hero-content {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* Quote Box */
-#quote-box {
-  margin-top: 1rem;
-  font-style: italic;
-  opacity: 0.9;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-  nav ul {
-    gap: 0.5rem;
-  }
-  .panel-grid img {
-    width: 100px;
-  }
-}
-
-/* 🗣️ Chat Section Styling */
+/* ====== CHAT SECTION ====== */
 .chat-section {
-  padding: 60px 20px;
-  background: linear-gradient(to bottom right, #1a1a1a, #000000);
-  color: white;
-  text-align: center;
+  background-color: #121222;
+  padding: 4rem 2rem;
 }
 
 .chat-section h2 {
   font-size: 2rem;
-  margin-bottom: 20px;
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 2px;
+  margin-bottom: 2rem;
 }
 
-.chat-frame {
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 900px;
-  margin: auto;
-  box-shadow: 0 0 30px rgba(255, 0, 100, 0.3);
+.chat-frame iframe {
+  border-radius: 15px;
+  box-shadow: 0 0 20px #6c5ce7aa;
 }
 
-/* 🌸 Sakura Petals */
-body::before {
-  content: '';
+/* ====== ANIMATIONS ====== */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== CANVAS ====== */
+#sakuraCanvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
-  background-image: url('assets/sakura-petal.png');
-  animation: fall 15s linear infinite;
-  opacity: 0.5;
   z-index: 0;
-  background-repeat: repeat;
-  background-size: 100px;
 }
 
-@keyframes fall {
-  0% { background-position: 0 -100%; }
-  100% { background-position: 0 100%; }
-}
-
-/* ⚡ Glowing Button */
-.hero-content button,
-.modal-content button {
-  box-shadow: 0 0 20px #a29bfe;
-}
-.hero-content button:hover,
-.modal-content button:hover {
-  background: #6c5ce7;
-  box-shadow: 0 0 25px #6c5ce7, 0 0 35px #a29bfe;
-  transform: scale(1.05);
-}
-
-/* 📦 Modal Glow */
-.modal-content {
-  box-shadow: 0 0 30px rgba(162, 155, 254, 0.3);
-  border: 1px solid #6c5ce7;
-}
-
-/* 📸 Image Hover Boost */
-.panel-grid img:hover {
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-  transform: scale(1.1) rotate(1deg);
-}
-
-/* 🧠 Scroll Reveal */
-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 💫 Orbiting Cult Seal Logo */
-nav .logo {
-  animation: pulseLogo 4s infinite ease-in-out;
-}
-@keyframes pulseLogo {
-  0%, 100% {
-    transform: rotate(0deg) scale(1);
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 0.8rem;
   }
-  50% {
-    transform: rotate(5deg) scale(1.1);
+
+  .hero h1 {
+    font-size: 1.8rem;
   }
-}
 
-/* 🌸 Bottom Shortcuts */
-.bottom-shortcuts {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 1500;
-}
+  .panel-grid {
+    grid-template-columns: 1fr;
+  }
 
-.shortcut-btn {
-  background: #1f1f2f;
-  color: #fff;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 0 10px #a29bfe99;
-  transition: all 0.3s ease;
-}
-
-.shortcut-btn:hover {
-  background: #a29bfe;
-  color: #000;
-  transform: scale(1.05);
-}
+  .modal-content {
+    width: 95%;
+  }
+  }
