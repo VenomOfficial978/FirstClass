@@ -308,3 +308,33 @@ nav .logo {
     transform: rotate(5deg) scale(1.1);
   }
 }
+
+/* 🌸 Bottom Shortcuts */
+.bottom-shortcuts {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1500;
+}
+
+.shortcut-btn {
+  background: #1f1f2f;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px #a29bfe99;
+  transition: all 0.3s ease;
+}
+
+.shortcut-btn:hover {
+  background: #a29bfe;
+  color: #000;
+  transform: scale(1.05);
+}
