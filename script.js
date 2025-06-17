@@ -2,6 +2,17 @@
 function showTab(tabName) {
   const tabs = ['home', 'anime', 'manga'];
 
+function toggleSettings() {
+  const panel = document.getElementById('settings-panel');
+  panel.classList.toggle('hidden');
+}
+
+// Optional: Dark mode toggle placeholder
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-theme');
+  alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented yet)`);
+}
+  
   tabs.forEach(tab => {
     const section = document.getElementById(tab);
     if (tab === tabName) {
