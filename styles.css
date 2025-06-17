@@ -1,16 +1,18 @@
-/* ====== GLOBAL RESET & BASE STYLES ====== */
+/* ===== GLOBAL RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ===== BASE STYLES ===== */
 html, body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #0f0f1a;
   color: #f5f5f5;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 a {
@@ -18,12 +20,21 @@ a {
   color: inherit;
 }
 
+/* ===== SECTIONS ===== */
 section {
   padding: 4rem 2rem;
   text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* ====== NAVBAR ====== */
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== NAVBAR ===== */
 nav {
   background-color: #1a1a2e;
   color: #fff;
@@ -44,11 +55,10 @@ nav ul {
 }
 
 nav li a {
-  color: #fff;
   font-weight: bold;
+  color: #fff;
   transition: color 0.3s ease;
 }
-
 nav li a:hover {
   color: #a29bfe;
 }
@@ -66,7 +76,7 @@ nav button {
   color: #fff;
 }
 
-/* ====== HERO SECTION ====== */
+/* ===== HERO ===== */
 .hero {
   position: relative;
   height: 100vh;
@@ -85,29 +95,20 @@ nav button {
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  filter: brightness(0.6);
+  filter: brightness(0.5);
 }
 
 .hero-content {
   max-width: 700px;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 1rem;
   box-shadow: 0 0 20px #6c5ce7aa;
   animation: fadeIn 2s ease-in;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-}
-
-.hero button {
+/* ===== MANGA BUTTONS ===== */
+.hero button, .shortcut-btn {
   background-color: #a29bfe;
   color: #000;
   border: none;
@@ -119,21 +120,36 @@ nav button {
   box-shadow: 0 0 10px #a29bfe88;
   transition: all 0.3s ease;
 }
-
-.hero button:hover {
+.hero button:hover, .shortcut-btn:hover {
   background-color: #fff;
   color: #6c5ce7;
   transform: scale(1.05);
 }
 
-/* ====== PANEL GRID ====== */
+/* ===== LIGHT/DARK TOGGLE ===== */
+body.light-mode {
+  background-color: #f0f0f0;
+  color: #222;
+}
+body.light-mode nav {
+  background-color: #fff;
+  color: #000;
+}
+body.light-mode .hero-content {
+  background: rgba(255, 255, 255, 0.7);
+}
+body.light-mode .shortcut-btn {
+  background-color: #6c5ce7;
+  color: #fff;
+}
+
+/* ===== PANEL GALLERY ===== */
 .panel-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   padding: 2rem;
 }
-
 .panel-grid img {
   width: 100%;
   border-radius: 15px;
@@ -141,27 +157,22 @@ nav button {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
-
 .panel-grid img:hover {
   transform: scale(1.05);
   box-shadow: 0 0 25px #a29bfeaa;
 }
 
-/* ====== JOIN FORM MODAL ====== */
+/* ===== MODAL ===== */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   background: rgba(15, 15, 25, 0.95);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 3000;
-  display: none;
 }
-
 .modal-content {
   background: #1f1f2f;
   padding: 2rem;
@@ -171,36 +182,22 @@ nav button {
   max-width: 400px;
   text-align: center;
 }
-
-.modal-content h2 {
-  margin-bottom: 1.5rem;
-}
-
 .modal-content input {
   width: 90%;
   padding: 0.7rem;
   margin-bottom: 1rem;
-  border: none;
   border-radius: 8px;
   font-size: 1rem;
+  border: none;
 }
-
 .modal-content button {
   background-color: #a29bfe;
   color: #000;
-  border: none;
   padding: 0.7rem 1.5rem;
   border-radius: 8px;
   font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border: none;
 }
-
-.modal-content button:hover {
-  background-color: #fff;
-  color: #6c5ce7;
-}
-
 .close {
   position: absolute;
   top: 2rem;
@@ -210,53 +207,62 @@ nav button {
   cursor: pointer;
 }
 
-/* ====== CHAT SECTION ====== */
+/* ===== CHAT SECTION ===== */
 .chat-section {
   background-color: #121222;
   padding: 4rem 2rem;
 }
-
-.chat-section h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-}
-
 .chat-frame iframe {
   border-radius: 15px;
   box-shadow: 0 0 20px #6c5ce7aa;
 }
 
-/* ====== ANIMATIONS ====== */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* ===== SHORTCUTS ===== */
+.bottom-shortcuts {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 1500;
+  animation: slideUp 1s ease-out 1;
 }
 
-/* ====== CANVAS ====== */
+/* ===== TERMINAL EASTER EGG ===== */
+.terminal {
+  background: #000;
+  color: #00ff88;
+  font-family: monospace;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 0 25px #0f0;
+  animation: fadeIn 1.5s ease-out;
+  display: none;
+}
+
+/* ===== CANVAS ===== */
 #sakuraCanvas {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
 }
 
-/* ====== RESPONSIVE ====== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
     gap: 0.8rem;
   }
-
   .hero h1 {
     font-size: 1.8rem;
   }
-
   .panel-grid {
     grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    width: 95%;
   }
   }
