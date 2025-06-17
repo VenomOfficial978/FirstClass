@@ -253,6 +253,108 @@ body.light-mode .shortcut-btn {
   z-index: 0;
 }
 
+/* ===== SETTINGS PANEL ===== */
+#settingsToggleBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #6c5ce7;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #a29bfecc;
+  color: white;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 4000;
+}
+#settingsToggleBtn:hover {
+  background-color: #a29bfe;
+  transform: rotate(15deg) scale(1.1);
+}
+
+#settingsPanel {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 320px;
+  max-height: 85vh;
+  background: rgba(30,30,45,0.95);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 3500;
+  display: none; /* toggled by JS */
+  flex-direction: column;
+  gap: 1.2rem;
+  overflow-y: auto;
+  box-shadow: 0 0 30px #6c5ce7aa;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#settingsPanel.show {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#settingsPanel h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  border-bottom: 1px solid #6c5ce7aa;
+  padding-bottom: 0.3rem;
+}
+
+#settingsPanel label {
+  display: block;
+  margin: 0.4rem 0 0.8rem 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#settingsPanel select,
+#settingsPanel input[type="range"] {
+  width: 100%;
+  padding: 0.3rem;
+  border-radius: 6px;
+  border: none;
+  background: #222244;
+  color: #eee;
+  font-size: 1rem;
+  outline-offset: 2px;
+  outline-color: #6c5ce7;
+  transition: background-color 0.3s ease;
+}
+
+#settingsPanel select:hover,
+#settingsPanel input[type="range"]:hover {
+  background: #333366;
+}
+
+#settingsPanel input[type="checkbox"] {
+  margin-right: 0.6rem;
+  cursor: pointer;
+  accent-color: #6c5ce7;
+}
+
+/* Scrollbar Styling for Settings Panel */
+#settingsPanel::-webkit-scrollbar {
+  width: 6px;
+}
+#settingsPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+#settingsPanel::-webkit-scrollbar-thumb {
+  background-color: #6c5ce7cc;
+  border-radius: 3px;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   nav ul {
@@ -265,4 +367,30 @@ body.light-mode .shortcut-btn {
   .panel-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Settings Panel goes full width on small screens */
+  #settingsPanel {
+    width: 90vw;
+    right: 5vw;
+    top: 70px;
+    max-height: 70vh;
   }
+  #settingsToggleBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.3rem;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes slideUp {
+  from {opacity: 0; transform: translateY(15px);}
+  to {opacity: 1; transform: translateY(0);}
+}
