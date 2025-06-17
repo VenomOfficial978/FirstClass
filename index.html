@@ -3,77 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cult of Panels</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
+  <title>Anime & Manga Hub</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="app">
+    <header>
+      <h1>Anime & Manga Hub</h1>
+      <button id="settings-btn">⚙️</button>
+    </header>
 
-  <!-- ========== HEADER ========== -->
-  <header class="header">
-    <div class="logo">
-      <img src="cult-seal.png" alt="Cult of Panels Logo" />
-      <h1>Cult of Panels</h1>
-    </div>
-    <div class="header-controls">
-      <button id="settingsBtn" title="Settings">⚙️</button>
-    </div>
-  </header>
+    <main id="content">
+      <section id="home" class="page active">
+        <h2>Welcome to the Hub</h2>
+        <p>Explore Anime and Manga from one place.</p>
+      </section>
+      <section id="anime" class="page">
+        <h2>Anime Collection</h2>
+        <p>Watch your favorite shows and find new ones.</p>
+      </section>
+      <section id="manga" class="page">
+        <h2>Manga Library</h2>
+        <p>Read and discover the best manga.</p>
+      </section>
+    </main>
 
-  <!-- ========== SETTINGS PANEL ========== -->
-  <aside id="settingsPanel" class="settings-panel">
-    <h2>Settings</h2>
-    
-    <section>
-      <h3>Themes</h3>
-      <select>
-        <option value="default">Default</option>
-        <option value="dark">Dark Mode</option>
-        <option value="light">Light Mode</option>
-        <option value="sakura">Sakura</option>
-        <option value="cyberpunk">Cyberpunk</option>
+    <footer>
+      <nav class="nav-bar">
+        <button class="nav-btn" data-target="anime">Anime</button>
+        <button class="nav-btn home-btn" data-target="home">Home</button>
+        <button class="nav-btn" data-target="manga">Manga</button>
+      </nav>
+    </footer>
+
+    <div id="settings-panel" class="hidden">
+      <h3>Settings</h3>
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="neon">Neon</option>
       </select>
-    </section>
+    </div>
+  </div>
 
-    <section>
-      <h3>Manga Settings</h3>
-      <label>
-        <input type="checkbox" /> Enable Flipbook View
-      </label>
-      <label>
-        <input type="checkbox" /> Show Speech Bubbles
-      </label>
-    </section>
-
-    <section>
-      <h3>Anime Settings</h3>
-      <label>
-        <input type="checkbox" /> Background Music
-      </label>
-      <label>
-        <input type="checkbox" /> Sakura Petals Effect
-      </label>
-    </section>
-
-    <section>
-      <h3>Other Settings</h3>
-      <label>
-        <input type="checkbox" /> Terminal Easter Egg
-      </label>
-      <label>
-        <input type="checkbox" /> Animated Transitions
-      </label>
-    </section>
-  </aside>
-
-  <!-- ========== MAIN CONTENT ========== -->
-  <main>
-    <section class="intro">
-      <h2>Welcome to the Cult</h2>
-      <p>Your one-stop shrine for anime and manga obsession. Powered by passion, panels, and particles.</p>
-    </section>
-    <!-- More content will go here... -->
-  </main>
-
+  <script src="script.js"></script>
 </body>
 </html>
