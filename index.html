@@ -13,60 +13,49 @@
       <p>Login with AniList to load your library</p>
       <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
     </header>
-    
-    <!-- Top Tabs -->
+
+    <!-- Top Anime/Manga Category Tabs -->
     <div class="list-buttons">
-      <button class="tab-btn" onclick="showAnimeCategories()">Anime</button>
-      <button class="tab-btn" onclick="showMangaCategories()">Manga</button>
+      <button class="tab-btn" onclick="openCategoryTab('animeLibrary')">Anime</button>
+      <button class="tab-btn" onclick="openCategoryTab('mangaLibrary')">Manga</button>
     </div>
 
-    <!-- Top Tabs: Anime Categories Section -->
-    <section id="anime-categories" class="tab-content hidden">
+    <!-- Separate Anime Library -->
+    <section id="animeLibrary" class="category-tab hidden">
       <h2>Anime Categories</h2>
-      <div class="category-tabs">
-        <button onclick="alert('Show Watching List')">Watching</button>
-        <button onclick="alert('Show Completed')">Completed</button>
-        <button onclick="alert('Show On Hold')">On Hold</button>
-        <button onclick="alert('Show Dropped')">Dropped</button>
-        <button onclick="alert('Show Plan to Watch')">Plan to Watch</button>
-      </div>
+      <p>This will show anime categories like Watching, Completed, etc.</p>
     </section>
 
-    <!-- Top Tabs: Manga Categories Section -->
-    <section id="manga-categories" class="tab-content hidden">
+    <!-- Separate Manga Library -->
+    <section id="mangaLibrary" class="category-tab hidden">
       <h2>Manga Categories</h2>
-      <div class="category-tabs">
-        <button onclick="alert('Show Reading List')">Reading</button>
-        <button onclick="alert('Show Completed')">Completed</button>
-        <button onclick="alert('Show On Hold')">On Hold</button>
-        <button onclick="alert('Show Dropped')">Dropped</button>
-        <button onclick="alert('Show Plan to Read')">Plan to Read</button>
-      </div>
+      <p>This will show manga categories like Reading, Completed, etc.</p>
     </section>
 
-    <!-- Bottom Tab: Home -->
+    <!-- Home Section -->
     <section id="home" class="tab-content">
       <h2>Continue Watching</h2>
       <div class="card-row">
         <div class="card">No anime loaded</div>
       </div>
+
       <h2>Continue Reading</h2>
       <div class="card-row">
         <div class="card">No manga loaded</div>
       </div>
     </section>
 
-    <!-- Bottom Tab: Anime (fetched from AniList) -->
+    <!-- Bottom Tab: Anime Feed -->
     <section id="anime" class="tab-content hidden">
-      <h2>Anime List</h2>
+      <h2>Explore Anime</h2>
       <div class="card-row">
         <div class="card">No anime available</div>
       </div>
     </section>
 
-    <!-- Bottom Tab: Manga (fetched from AniList) -->
+    <!-- Bottom Tab: Manga Feed -->
     <section id="manga" class="tab-content hidden">
-      <h2>Manga List</h2>
+      <h2>Explore Manga</h2>
       <div class="card-row">
         <div class="card">No manga available</div>
       </div>
@@ -75,9 +64,11 @@
 
   <!-- Bottom Navigation -->
   <nav class="bottom-nav">
-    <button class="home-btn" onclick="showTab('home')">Home</button>
-    <button onclick="showTab('anime')">Anime</button>
-    <button onclick="showTab('manga')">Manga</button>
+    <div class="floating-nav">
+      <button onclick="showTab('anime')">Anime</button>
+      <button class="home-btn" onclick="showTab('home')">Home</button>
+      <button onclick="showTab('manga')">Manga</button>
+    </div>
   </nav>
 
   <!-- Settings Panel -->
