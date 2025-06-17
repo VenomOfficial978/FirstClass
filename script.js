@@ -1,61 +1,43 @@
-// Tab Switching Logic
+// Handle tab switching
 function showTab(tabName) {
-  // Hide all tab contents
-  document.querySelectorAll('.tab-content').forEach(tab => {
-    tab.classList.remove('active');
-  });
+  const tabs = ['home', 'anime', 'manga'];
 
-  // Show selected tab
-  document.getElementById(`${tabName}-tab`).classList.add('active');
-
-  // Highlight tab buttons
-  document.querySelectorAll('.tab-button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document.querySelectorAll('.tab-button').forEach(btn => {
-    if (btn.innerText.toLowerCase().includes(tabName)) {
-      btn.classList.add('active');
+  tabs.forEach(tab => {
+    const section = document.getElementById(tab);
+    if (tab === tabName) {
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
     }
   });
 
-  // Highlight bottom nav icons
-  document.querySelectorAll('.nav-icon').forEach(icon => {
-    icon.classList.remove('active');
+  // Optional: Highlight the active nav button
+  document.querySelectorAll('.bottom-nav button').forEach(btn => {
+    btn.classList.remove('active-tab');
   });
-  document.querySelectorAll('.nav-icon').forEach(icon => {
-    if (icon.innerText.toLowerCase().includes(tabName)) {
-      icon.classList.add('active');
-    }
-  });
+
+  const tabButton = {
+    anime: 0,
+    home: 1,
+    manga: 2,
+  };
+
+  document.querySelectorAll('.bottom-nav button')[tabButton[tabName]]?.classList.add('active-tab');
 }
 
-// Settings Panel Toggle
-function toggleSettings() {
-  const panel = document.getElementById('settings-panel');
-  panel.classList.toggle('open');
-}
-
-// Theme Toggle (dark/light)
-function toggleTheme() {
-  const body = document.body;
-  if (body.classList.contains('light')) {
-    body.classList.remove('light');
-    body.style.background = '#0d0d0d';
-    body.style.color = '#f0f0f0';
-  } else {
-    body.classList.add('light');
-    body.style.background = '#f5f5f5';
-    body.style.color = '#111';
+// Optional: Highlight active button style
+const style = document.createElement('style');
+style.innerHTML = `
+  .active-tab {
+    background: #4fd1c5 !important;
+    color: #000 !important;
+    border-color: #4fd1c5 !important;
+    box-shadow: 0 0 10px #4fd1c599;
   }
-}
+`;
+document.head.appendChild(style);
 
-// AniList Login Placeholder
-function loginAniList() {
-  alert("AniList login placeholder.\nTo implement: Use OAuth and fetch user data.");
-  // Later: Redirect to AniList OAuth, get token, fetch data
-}
-
-// Optional: Default Tab on Load
-document.addEventListener("DOMContentLoaded", () => {
+// Default to home tab
+document.addEventListener('DOMContentLoaded', () => {
   showTab('home');
 });
