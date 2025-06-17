@@ -1,3 +1,28 @@
+let accessToken = null;
+
+// Extract token from URL hash
+if (window.location.hash) {
+  const hash = window.location.hash.substring(1); // Remove '#'
+  const params = new URLSearchParams(hash);
+  accessToken = params.get('access_token');
+
+  if (accessToken) {
+    localStorage.setItem('anilist_token', accessToken);
+    window.location.hash = ''; // Clean up URL
+  }
+}
+
+// Load token from localStorage if available
+if (!accessToken) {
+  accessToken = localStorage.getItem('anilist_token');
+}
+
+// Optionally update UI
+if (accessToken) {
+  document.querySelector('.username').innerHTML = 'Welcome, <span class="highlight">User</span>';
+  document.getElementById('login-button').innerText = '✅ Logged In';
+}
+
 // ===== TAB SWITCHING =====
 function showTab(tabName) {
   const tabs = ['home', 'explore-anime', 'explore-manga'];
