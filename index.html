@@ -12,6 +12,7 @@
     <header>
       <div class="username">Welcome, <span class="highlight">Guest</span></div>
       <p>Login with AniList to load your library</p>
+      <button id="login-button" onclick="authenticateWithAniList()">🔓 Login with AniList</button>
       <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
     </header>
 
@@ -24,7 +25,7 @@
     <!-- Dashboard Section: User Library (Top Tabs) -->
     <section id="dashboard" class="hidden">
       <div class="user-info">
-        <img id="user-avatar" src="" alt="Avatar" />
+        <img id="user-avatar" class="avatar" src="" alt="Avatar" />
         <h2 id="user-name">Username</h2>
         <button onclick="syncAniList()">🔄 Sync</button>
       </div>
