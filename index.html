@@ -8,28 +8,24 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Header -->
     <header>
       <div class="username">Welcome, <span class="highlight">Guest</span></div>
       <p>Login with AniList to load your library</p>
-      <button id="login-button" onclick="authenticateWithAniList()">🔓 Login with AniList</button>
+      <button id="login-button" onclick="authenticateWithAniList()">🔓 Login</button>
       <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
     </header>
 
-    <!-- Top Tabs (Dashboard Category View) -->
     <div class="list-buttons">
       <button class="tab-btn" onclick="showLibraryTab('anime')">Anime</button>
       <button class="tab-btn" onclick="showLibraryTab('manga')">Manga</button>
     </div>
 
-    <!-- Dashboard Section: User Library (Top Tabs) -->
     <section id="dashboard" class="hidden">
       <div class="user-info">
         <img id="user-avatar" class="avatar" src="" alt="Avatar" />
         <h2 id="user-name">Username</h2>
         <button onclick="syncAniList()">🔄 Sync</button>
       </div>
-
       <div class="category-tabs">
         <button onclick="switchCategory('watching')">Watching</button>
         <button onclick="switchCategory('completed')">Completed</button>
@@ -37,17 +33,14 @@
         <button onclick="switchCategory('dropped')">Dropped</button>
         <button onclick="switchCategory('plan_to_watch')">Plan to Watch</button>
       </div>
-
       <div id="dashboard-content">
         <p>Select a category to view your anime/manga list.</p>
       </div>
     </section>
 
-    <!-- Explore Tabs (Bottom Nav) -->
     <section id="home" class="tab-content">
       <h2>Continue Watching</h2>
       <div class="card-row" id="continue-watching">No anime loaded</div>
-
       <h2>Continue Reading</h2>
       <div class="card-row" id="continue-reading">No manga loaded</div>
     </section>
@@ -63,21 +56,16 @@
     </section>
   </div>
 
-  <!-- Floating Bottom Navigation -->
   <nav class="bottom-nav">
     <button onclick="showTab('home')">🏠 Home</button>
     <button onclick="showTab('explore-anime')">🎥 Anime</button>
     <button onclick="showTab('explore-manga')">📖 Manga</button>
   </nav>
 
-  <!-- Stylish Pop-Up Settings Panel -->
   <div id="settings-panel" class="settings-panel hidden">
     <h2>Settings</h2>
     <div class="settings-option">
-      <label>
-        <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
-        Dark Theme
-      </label>
+      <label><input type="checkbox" id="themeToggle" onchange="toggleTheme()" /> Dark Theme</label>
     </div>
     <div class="settings-option">
       <button onclick="alert('Language switch coming soon!')">🌐 Switch Language</button>
