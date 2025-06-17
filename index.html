@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AniTrack</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-container">
@@ -20,13 +20,13 @@
       <button class="tab-btn" onclick="openCategoryTab('mangaLibrary')">Manga</button>
     </div>
 
-    <!-- Separate Anime Library -->
+    <!-- Top Anime Category Section -->
     <section id="animeLibrary" class="category-tab hidden">
       <h2>Anime Categories</h2>
       <p>This will show anime categories like Watching, Completed, etc.</p>
     </section>
 
-    <!-- Separate Manga Library -->
+    <!-- Top Manga Category Section -->
     <section id="mangaLibrary" class="category-tab hidden">
       <h2>Manga Categories</h2>
       <p>This will show manga categories like Reading, Completed, etc.</p>
@@ -62,7 +62,7 @@
     </section>
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom Floating Navigation -->
   <nav class="bottom-nav">
     <div class="floating-nav">
       <button onclick="showTab('anime')">Anime</button>
@@ -89,6 +89,6 @@
     <button class="close-settings" onclick="toggleSettings()">Close</button>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
