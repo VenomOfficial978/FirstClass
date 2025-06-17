@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AniTrack</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="app-container">
@@ -15,42 +15,65 @@
     </header>
 
     <div class="list-buttons">
-      <button class="tab-btn" onclick="showTab('anime')">Anime</button>
-      <button class="tab-btn" onclick="showTab('manga')">Manga</button>
+      <button class="tab-btn" onclick="showCategoryTab('anime')">Anime</button>
+      <button class="tab-btn" onclick="showCategoryTab('manga')">Manga</button>
     </div>
 
+    <!-- HOME TAB -->
     <section id="home" class="tab-content">
       <h2>Continue Watching</h2>
-      <div class="card-row">
+      <div class="card-row" id="continue-watching">
         <div class="card">No anime loaded</div>
       </div>
 
       <h2>Continue Reading</h2>
-      <div class="card-row">
+      <div class="card-row" id="continue-reading">
         <div class="card">No manga loaded</div>
       </div>
     </section>
 
+    <!-- ANIME EXPLORE TAB (BOTTOM NAV) -->
     <section id="anime" class="tab-content hidden">
-      <h2>Your Anime List</h2>
-      <div class="card-row">
-        <div class="card">No anime available</div>
+      <h2>Anime Explorer</h2>
+      <div class="card-row" id="anime-explore">
+        <div class="card">No anime loaded</div>
       </div>
     </section>
 
+    <!-- MANGA EXPLORE TAB (BOTTOM NAV) -->
     <section id="manga" class="tab-content hidden">
-      <h2>Your Manga List</h2>
-      <div class="card-row">
-        <div class="card">No manga available</div>
+      <h2>Manga Explorer</h2>
+      <div class="card-row" id="manga-explore">
+        <div class="card">No manga loaded</div>
       </div>
     </section>
+
+    <!-- CATEGORY VIEW POPUP -->
+    <div id="category-panel" class="category-panel hidden">
+      <div class="category-header">
+        <h2 id="category-title">Your List</h2>
+        <button onclick="closeCategoryPanel()">✖️</button>
+      </div>
+      <div class="category-tabs">
+        <button>Watching</button>
+        <button>Completed</button>
+        <button>On Hold</button>
+        <button>Dropped</button>
+        <button>Plan to Watch</button>
+      </div>
+      <div id="category-content">
+        <p>No data loaded</p>
+      </div>
+    </div>
   </div>
 
   <!-- Floating Bottom Navigation -->
-  <nav class="floating-nav">
-    <button onclick="showTab('home')" id="nav-home">Home</button>
-    <button onclick="showTab('anime')" id="nav-anime">Anime</button>
-    <button onclick="showTab('manga')" id="nav-manga">Manga</button>
+  <nav class="bottom-nav">
+    <div class="nav-float">
+      <button class="home-btn" onclick="showTab('home')">Home</button>
+      <button onclick="showTab('anime')">Anime</button>
+      <button onclick="showTab('manga')">Manga</button>
+    </div>
   </nav>
 
   <!-- Settings Panel -->
@@ -71,6 +94,6 @@
     <button class="close-settings" onclick="toggleSettings()">Close</button>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
