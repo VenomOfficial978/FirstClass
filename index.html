@@ -2,93 +2,77 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AniTrack</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div class="app-container">
     <header>
-      <div class="username">Welcome, <span class="highlight">Guest</span></div>
-      <p>Login with AniList to load your library</p>
+      <div class="username">Welcome, <span class="highlight" id="username">Guest</span></div>
+      <p id="login-note">Login with AniList to load your library</p>
       <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
+      <button class="login-btn" onclick="loginAniList()">🔐 Login with AniList</button>
     </header>
 
-    <!-- Top Anime/Manga Category Tabs -->
     <div class="list-buttons">
-      <button class="tab-btn" onclick="openCategoryTab('animeLibrary')">Anime</button>
-      <button class="tab-btn" onclick="openCategoryTab('mangaLibrary')">Manga</button>
+      <button class="tab-btn" onclick="showTopTab('anime')">Anime</button>
+      <button class="tab-btn" onclick="showTopTab('manga')">Manga</button>
     </div>
 
-    <!-- Top Anime Category Section -->
-    <section id="animeLibrary" class="category-tab hidden">
-      <h2>Anime Categories</h2>
-      <p>This will show anime categories like Watching, Completed, etc.</p>
-    </section>
-
-    <!-- Top Manga Category Section -->
-    <section id="mangaLibrary" class="category-tab hidden">
-      <h2>Manga Categories</h2>
-      <p>This will show manga categories like Reading, Completed, etc.</p>
-    </section>
-
-    <!-- Home Section -->
     <section id="home" class="tab-content">
       <h2>Continue Watching</h2>
-      <div class="card-row">
+      <div class="card-row" id="continue-watching">
         <div class="card">No anime loaded</div>
       </div>
 
       <h2>Continue Reading</h2>
-      <div class="card-row">
+      <div class="card-row" id="continue-reading">
         <div class="card">No manga loaded</div>
       </div>
     </section>
 
-    <!-- Bottom Tab: Anime Feed -->
     <section id="anime" class="tab-content hidden">
-      <h2>Explore Anime</h2>
-      <div class="card-row">
-        <div class="card">No anime available</div>
-      </div>
+      <h2>Your Anime Categories</h2>
+      <div id="anime-categories"></div>
     </section>
 
-    <!-- Bottom Tab: Manga Feed -->
     <section id="manga" class="tab-content hidden">
+      <h2>Your Manga Categories</h2>
+      <div id="manga-categories"></div>
+    </section>
+
+    <section id="anime-explore" class="tab-content hidden">
+      <h2>Explore Anime</h2>
+      <div id="explore-anime"></div>
+    </section>
+
+    <section id="manga-explore" class="tab-content hidden">
       <h2>Explore Manga</h2>
-      <div class="card-row">
-        <div class="card">No manga available</div>
-      </div>
+      <div id="explore-manga"></div>
     </section>
   </div>
 
-  <!-- Bottom Floating Navigation -->
-  <nav class="bottom-nav">
-    <div class="floating-nav">
-      <button onclick="showTab('anime')">Anime</button>
-      <button class="home-btn" onclick="showTab('home')">Home</button>
-      <button onclick="showTab('manga')">Manga</button>
-    </div>
+  <nav class="bottom-nav pop-up-nav">
+    <button onclick="showBottomTab('anime-explore')">Anime</button>
+    <button onclick="showTab('home')" class="home-btn">Home</button>
+    <button onclick="showBottomTab('manga-explore')">Manga</button>
   </nav>
 
-  <!-- Settings Panel -->
   <div id="settings-panel" class="settings-panel hidden">
     <h2>Settings</h2>
     <div class="settings-option">
-      <label>
-        <input type="checkbox" id="themeToggle" onchange="toggleTheme()" />
-        Dark Theme
-      </label>
+      <label><input type="checkbox" id="themeToggle" onchange="toggleTheme()" /> Dark Theme</label>
     </div>
     <div class="settings-option">
       <button onclick="alert('Coming soon!')">Switch Language</button>
     </div>
     <div class="settings-option">
-      <button onclick="alert('AniList logout not yet implemented')">Log Out</button>
+      <button onclick="logoutAniList()">Log Out</button>
     </div>
     <button class="close-settings" onclick="toggleSettings()">Close</button>
   </div>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
