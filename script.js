@@ -74,7 +74,7 @@ function switchCategory(category) {
     .then(res => res.json())
     .then(res => {
       const entries =
-        res.data.MediaListCollection.lists?.flatMap(list => list.entries) || [];
+        res.data?.MediaListCollection?.lists?.flatMap(list => list.entries) || [];
       const container = document.getElementById('dashboard-content');
       if (!entries.length) {
         container.innerHTML = `<p>No ${type} found in ${category} category.</p>`;
@@ -170,8 +170,8 @@ async function fetchUserData(token) {
     document.querySelector('.username span').textContent = data.Viewer.name;
     document.querySelector('#user-avatar').src = data.Viewer.avatar.large;
     document.querySelector('#user-name').textContent = data.Viewer.name;
-    document.querySelector('#anime-stats').textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
-    document.querySelector('#manga-stats').textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
+    document.querySelector('#anime-stats')?.textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
+    document.querySelector('#manga-stats')?.textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
   }
 }
 
