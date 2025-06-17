@@ -3,50 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anime & Manga Hub</title>
+  <title>Volthaar Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>Anime & Manga Hub</h1>
-      <button id="settings-btn">⚙️</button>
-    </header>
+  <header>
+    <div class="user-info">
+      <h1>Volthaar</h1>
+      <p>Episodes Watched <span class="highlight">3924</span></p>
+      <p>Chapters Read <span class="highlight">55776</span></p>
+    </div>
+    <div class="settings-btn" onclick="toggleSettings()">⚙️</div>
+  </header>
 
-    <main id="content">
-      <section id="home" class="page active">
-        <h2>Welcome to the Hub</h2>
-        <p>Explore Anime and Manga from one place.</p>
-      </section>
-      <section id="anime" class="page">
-        <h2>Anime Collection</h2>
-        <p>Watch your favorite shows and find new ones.</p>
-      </section>
-      <section id="manga" class="page">
-        <h2>Manga Library</h2>
-        <p>Read and discover the best manga.</p>
-      </section>
-    </main>
+  <div class="tabs">
+    <button class="tab active" data-tab="anime">Anime List</button>
+    <button class="tab" data-tab="manga">Manga List</button>
+  </div>
 
-    <footer>
-      <nav class="nav-bar">
-        <button class="nav-btn" data-target="anime">Anime</button>
-        <button class="nav-btn home-btn" data-target="home">Home</button>
-        <button class="nav-btn" data-target="manga">Manga</button>
-      </nav>
-    </footer>
-
-    <div id="settings-panel" class="hidden">
-      <h3>Settings</h3>
-      <label for="theme-select">Theme:</label>
-      <select id="theme-select">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="neon">Neon</option>
-      </select>
+  <div class="content" id="anime" style="display:block;">
+    <h2>Continue Watching</h2>
+    <div class="card-row">
+      <div class="card">I'm the Evil Lord...</div>
+      <div class="card">I Was Reincarnated...</div>
+    </div>
+    <h2>Favourite Anime</h2>
+    <div class="card-row">
+      <div class="card">The Eminence...</div>
+      <div class="card">Chainsaw Man</div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div class="content" id="manga" style="display:none;">
+    <h2>Continue Reading</h2>
+    <div class="card-row">
+      <div class="card">Solo Leveling</div>
+      <div class="card">One Piece</div>
+    </div>
+    <h2>Favourite Manga</h2>
+    <div class="card-row">
+      <div class="card">Berserk</div>
+      <div class="card">Vagabond</div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-btn"><span>📺</span></div>
+    <div class="nav-btn active">HOME</div>
+    <div class="nav-btn"><span>📚</span></div>
+  </div>
+
+  <div id="settings-panel" class="settings-panel">
+    <h3>Settings</h3>
+    <p>Theme: <button>Light/Dark</button></p>
+    <p>Notifications: <button>Toggle</button></p>
+  </div>
 </body>
 </html>
