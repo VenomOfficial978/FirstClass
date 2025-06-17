@@ -1,56 +1,66 @@
-// Tab switch logic
+// Show bottom tab (Home / Anime / Manga)
 function showTab(tabName) {
-  const tabs = ['home', 'anime', 'manga'];
-  
-  tabs.forEach(tab => {
-    const section = document.getElementById(tab);
-    if (tab === tabName) {
-      section.classList.remove('hidden');
-    } else {
-      section.classList.add('hidden');
-    }
+  const sections = ['home', 'anime', 'manga'];
+  sections.forEach(id => {
+    document.getElementById(id).classList.add('hidden');
   });
 
-  // Highlight active nav button
-  document.querySelectorAll('.floating-nav button').forEach(btn => {
-    btn.classList.remove('active-tab');
-  });
+  // Also hide top tabs when bottom ones are shown
+  document.getElementById('anime-categories').classList.add('hidden');
+  document.getElementById('manga-categories').classList.add('hidden');
 
-  const tabIndex = {
-    anime: 0,
-    home: 1,
-    manga: 2,
-  };
+  document.getElementById(tabName).classList.remove('hidden');
 
-  document.querySelectorAll('.floating-nav button')[tabIndex[tabName]]?.classList.add('active-tab');
+  // Highlight active bottom nav
+  document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active-tab'));
+  const index = { anime: 1, home: 0, manga: 2 };
+  document.querySelectorAll('.bottom-nav button')[index[tabName]]?.classList.add('active-tab');
 }
 
-// Toggle settings panel
+// Show Anime Categories section (from top tab)
+function showAnimeCategories() {
+  hideAllMainSections();
+  document.getElementById('anime-categories').classList.remove('hidden');
+}
+
+// Show Manga Categories section (from top tab)
+function showMangaCategories() {
+  hideAllMainSections();
+  document.getElementById('manga-categories').classList.remove('hidden');
+}
+
+// Hide all content sections
+function hideAllMainSections() {
+  ['home', 'anime', 'manga', 'anime-categories', 'manga-categories'].forEach(id => {
+    document.getElementById(id)?.classList.add('hidden');
+  });
+}
+
+// Toggle Settings
 function toggleSettings() {
   const panel = document.getElementById('settings-panel');
   panel.classList.toggle('hidden');
-  panel.classList.toggle('show');
 }
 
-// Toggle dark/light theme (placeholder)
+// Theme Toggle Placeholder
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark-theme');
-  alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (placeholder effect)`);
+  alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented yet)`);
 }
 
-// On DOM load, default to home
-document.addEventListener('DOMContentLoaded', () => {
-  showTab('home');
-});
-
-// Inject active button highlight styling
+// Style active tab
 const style = document.createElement('style');
 style.innerHTML = `
   .active-tab {
-    background: #ff4d8b !important;
-    color: white !important;
-    border-color: #ff4d8b !important;
-    box-shadow: 0 0 12px #ff4d8b88;
+    background: #4fd1c5 !important;
+    color: #000 !important;
+    border-color: #4fd1c5 !important;
+    box-shadow: 0 0 10px #4fd1c599;
   }
 `;
 document.head.appendChild(style);
+
+// Show Home by default
+document.addEventListener('DOMContentLoaded', () => {
+  showTab('home');
+});
