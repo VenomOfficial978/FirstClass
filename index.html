@@ -3,62 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Volthaar Tracker</title>
+  <title>Animanga Vault</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="user-info">
-      <h1>Volthaar</h1>
-      <p>Episodes Watched <span class="highlight">3924</span></p>
-      <p>Chapters Read <span class="highlight">55776</span></p>
+
+  <!-- Header Profile Banner -->
+  <header class="profile-banner">
+    <img src="banner.jpg" alt="Banner" class="banner-img" />
+    <div class="profile-info">
+      <img src="avatar.jpg" alt="Avatar" class="avatar" />
+      <div class="details">
+        <h1 id="username">Volthaar</h1>
+        <p>🎥 Episodes: <span id="episodes-watched">3924</span></p>
+        <p>📖 Chapters: <span id="chapters-read">55776</span></p>
+      </div>
+      <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
     </div>
-    <div class="settings-btn" onclick="toggleSettings()">⚙️</div>
   </header>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="anime">Anime List</button>
-    <button class="tab" data-tab="manga">Manga List</button>
-  </div>
-
-  <div class="content" id="anime">
-    <h2>Continue Watching</h2>
-    <div class="card-row">
-      <div class="card">I'm the Evil Lord...</div>
-      <div class="card">I Was Reincarnated...</div>
+  <!-- Friends/Active Section -->
+  <section class="friend-strip">
+    <h3>Recently Active</h3>
+    <div class="avatars-scroll">
+      <!-- Friend avatars -->
+      <img src="avatar1.jpg" class="mini-avatar" />
+      <img src="avatar2.jpg" class="mini-avatar" />
+      <img src="avatar3.jpg" class="mini-avatar" />
+      <img src="avatar4.jpg" class="mini-avatar" />
+      <img src="avatar5.jpg" class="mini-avatar" />
     </div>
-    <h2>Favourite Anime</h2>
-    <div class="card-row">
-      <div class="card">The Eminence...</div>
-      <div class="card">Chainsaw Man</div>
-    </div>
-  </div>
+  </section>
 
-  <div class="content" id="manga" style="display: none;">
-    <h2>Continue Reading</h2>
-    <div class="card-row">
-      <div class="card">Solo Leveling</div>
-      <div class="card">One Piece</div>
-    </div>
-    <h2>Favourite Manga</h2>
-    <div class="card-row">
-      <div class="card">Berserk</div>
-      <div class="card">Vagabond</div>
-    </div>
-  </div>
+  <!-- Tab Buttons -->
+  <nav class="tabs">
+    <button class="tab-button" onclick="showTab('anime')">📺 Anime</button>
+    <button class="tab-button active" onclick="showTab('home')">🏠 Home</button>
+    <button class="tab-button" onclick="showTab('manga')">📚 Manga</button>
+  </nav>
 
-  <div class="bottom-nav">
-    <div class="nav-btn"><span>📺</span></div>
-    <div class="nav-btn active">HOME</div>
-    <div class="nav-btn"><span>📚</span></div>
-  </div>
+  <!-- Main Sections -->
+  <main>
 
-  <div id="settings-panel" class="settings-panel">
-    <h3>Settings</h3>
-    <p>Theme: <button>Light/Dark</button></p>
-    <p>Notifications: <button>Toggle</button></p>
-  </div>
+    <!-- Home Tab -->
+    <section id="home-tab" class="tab-content active">
+      <h2>Planned Anime & Manga</h2>
+      <div class="card-grid" id="planned-combined">
+        <div class="card">One Piece</div>
+        <div class="card">Bleach</div>
+        <div class="card">Solo Leveling</div>
+        <div class="card">Vinland Saga</div>
+      </div>
+    </section>
 
+    <!-- Anime Tab -->
+    <section id="anime-tab" class="tab-content">
+      <h2>Continue Watching</h2>
+      <div class="card-grid" id="anime-watching">
+        <div class="card">Attack on Titan</div>
+        <div class="card">Frieren</div>
+      </div>
+      <h2>Favourites</h2>
+      <div class="card-grid" id="anime-favorites">
+        <div class="card">The Eminence in Shadow</div>
+        <div class="card">Chainsaw Man</div>
+      </div>
+    </section>
+
+    <!-- Manga Tab -->
+    <section id="manga-tab" class="tab-content">
+      <h2>Continue Reading</h2>
+      <div class="card-grid" id="manga-reading">
+        <div class="card">Berserk</div>
+        <div class="card">Tokyo Revengers</div>
+      </div>
+      <h2>Favourites</h2>
+      <div class="card-grid" id="manga-favorites">
+        <div class="card">Vagabond</div>
+        <div class="card">Oyasumi Punpun</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Settings Panel -->
+  <aside id="settings-panel" class="settings-panel">
+    <h3>⚙️ Settings</h3>
+    <p>
+      Theme: <button onclick="toggleTheme()">Toggle Light/Dark</button>
+    </p>
+    <p>
+      AniList: <button onclick="loginAniList()">Connect Account</button>
+    </p>
+  </aside>
+
+  <!-- Bottom Navigation Bar -->
+  <footer class="bottom-nav">
+    <div onclick="showTab('anime')" class="nav-icon">📺</div>
+    <div onclick="showTab('home')" class="nav-icon active">🏠</div>
+    <div onclick="showTab('manga')" class="nav-icon">📚</div>
+  </footer>
+
+  <!-- Script Logic -->
   <script src="script.js"></script>
 </body>
 </html>
