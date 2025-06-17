@@ -1,17 +1,18 @@
-// Tab toggle
+// Tab switching
 document.querySelectorAll('.tab').forEach(button => {
   button.addEventListener('click', () => {
-    const tab = button.dataset.tab;
+    const targetTab = button.getAttribute('data-tab');
 
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
     button.classList.add('active');
 
-    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-    document.getElementById(tab).style.display = 'block';
+    document.querySelectorAll('.content').forEach(content => {
+      content.style.display = content.id === targetTab ? 'block' : 'none';
+    });
   });
 });
 
-// Toggle settings
+// Toggle settings panel
 function toggleSettings() {
   const panel = document.getElementById('settings-panel');
   panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
