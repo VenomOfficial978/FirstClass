@@ -113,7 +113,10 @@ const clientId = '27691';
 const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
 
 function authenticateWithAniList() {
-  const authUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&response_type=token&redirect_uri=${redirectUri}`;
+  const clientId = 27691;
+  const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
+  const authUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
+
   window.location.href = authUrl;
 }
 
