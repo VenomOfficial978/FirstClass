@@ -5,209 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cult of Panels</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    /* 🩵 Enhanced Bottom Buttons Style */
-    .bottom-shortcuts {
+    /* Simplified Compact Buttons */
+    .shortcut-bar {
       position: fixed;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 0;
+      width: 100%;
+      background-color: #1f1f2f;
       display: flex;
-      gap: 8px;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.7);
       z-index: 1500;
-      animation: slideUp 1s ease-out 1;
     }
-
-    .shortcut-btn {
-      background: #1f1f2f;
+    .shortcut-icon {
+      color: #a29bfe;
+      font-size: 1.3rem;
+      text-align: center;
+      flex: 1;
+      transition: transform 0.2s ease;
+    }
+    .shortcut-icon:hover {
+      transform: scale(1.2);
       color: #fff;
+    }
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .top-buttons a {
       padding: 0.5rem 1rem;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 0 12px #a29bfe88, 0 0 6px #6c5ce766;
-      transition: all 0.3s ease;
-      animation: floatPulse 3s ease-in-out infinite;
-    }
-
-    .shortcut-btn:hover {
-      background: #a29bfe;
+      background-color: #a29bfe;
       color: #000;
-      transform: scale(1.08);
-      box-shadow: 0 0 20px #a29bfecc;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #6c5ce7aa;
+      transition: all 0.3s ease;
     }
-
-    @keyframes slideUp {
-      from {
-        transform: translate(-50%, 100%);
-        opacity: 0;
-      }
-      to {
-        transform: translate(-50%, 0%);
-        opacity: 1;
-      }
-    }
-
-    @keyframes floatPulse {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
+    .top-buttons a:hover {
+      background-color: #fff;
+      color: #6c5ce7;
     }
   </style>
 </head>
 <body>
 
-  <!-- 🌸 Sakura Canvas -->
-  <canvas id="sakuraCanvas"></canvas>
+  <!-- Optional BG Video -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="assets/bg.mp4" type="video/mp4" />
+  </video>
 
-  <!-- 🔥 Background Music -->
-  <audio id="bgMusic" src="assets/bg-music.mp3" autoplay loop></audio>
+  <!-- Anime & Manga Buttons -->
+  <div class="top-buttons">
+    <a href="#anime-list">Anime List</a>
+    <a href="#manga-list">Manga List</a>
+  </div>
 
-  <!-- ⛩️ NAVIGATION BAR -->
-  <nav>
-    <img src="assets/cult-seal.png" alt="Cult Seal" class="logo" />
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#manifesto">Manifesto</a></li>
-      <li><a href="#panels">Panels</a></li>
-      <li><a href="#join">Join</a></li>
-      <li><a href="#cult-chat">Chat</a></li>
-    </ul>
-    <button onclick="toggleTheme()">🌓</button>
-  </nav>
-
-  <!-- 🪬 HOME SECTION -->
-  <section id="home" class="hero">
-    <video autoplay muted loop id="bgVideo">
-      <source src="assets/bg.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-content">
-      <h1>Welcome to the Cult of Panels</h1>
-      <p>A sacred realm where manga breathes and panels speak.</p>
-      <button onclick="openModal()">Join the Cult</button>
-      <button onclick="showQuote()">Enlighten Me</button>
-      <p id="quote-box">“The page is not silent. It whispers purpose.”</p>
-    </div>
-  </section>
-
-  <!-- 📜 MANIFESTO SECTION -->
-  <section id="manifesto">
-    <h2>Our Manifesto</h2>
-    <p>
-      We are the watchers of the panel, the seekers of soul lines, the readers of eternal ink. 
-      We are led by Prajval and the shadows of forgotten artists.
-    </p>
-  </section>
-
-  <!-- 🖼️ PANELS GALLERY -->
-  <section id="panels">
-    <h2>Divine Panels</h2>
+  <!-- Panel Section -->
+  <section id="anime-list">
+    <h2>Anime List</h2>
     <div class="panel-grid">
       <img src="assets/panels/panel1.jpg" onclick="enlarge(this)">
       <img src="assets/panels/panel2.jpg" onclick="enlarge(this)">
+    </div>
+  </section>
+
+  <section id="manga-list">
+    <h2>Manga List</h2>
+    <div class="panel-grid">
       <img src="assets/panels/panel3.jpg" onclick="enlarge(this)">
+      <img src="assets/panels/panel1.jpg" onclick="enlarge(this)">
     </div>
   </section>
 
-  <!-- 🙌 JOIN SECTION -->
-  <section id="join">
-    <h2>Join Our Sacred Path</h2>
-    <button onclick="openModal()">Begin Your Journey</button>
-  </section>
-
-  <!-- 🗣️ EMBEDDED CHAT SHRINE -->
-  <section id="cult-chat" class="chat-section">
-    <h2>Speak to the Oracles</h2>
-    <div class="chat-frame">
-      <iframe 
-        src="https://tawk.to/chat/684fefeeca65351908aab336/1its42f1k" 
-        width="100%" 
-        height="500" 
-        style="border: none;" 
-        allow="microphone; camera">
-      </iframe>
-    </div>
-  </section>
-
-  <!-- 🪄 MODAL FORM -->
-  <div id="joinModal" class="modal">
-    <div class="modal-content">
-      <span onclick="closeModal()" class="close">&times;</span>
-      <h2>Enter the Cult</h2>
-      <form>
-        <input type="text" placeholder="Name (Alias is fine)" />
-        <input type="email" placeholder="Email (fake is okay)" />
-        <button type="submit">Offer Your Soul</button>
-      </form>
-    </div>
+  <!-- Bottom Nav Shortcuts -->
+  <div class="shortcut-bar">
+    <a href="#anime-list" class="shortcut-icon"><i class="fas fa-play-circle"></i></a>
+    <a href="#" class="shortcut-icon"><i class="fas fa-home"></i></a>
+    <a href="#manga-list" class="shortcut-icon"><i class="fas fa-book-open"></i></a>
   </div>
 
-  <!-- 🌸 Bottom Navigation Shortcuts -->
-  <div class="bottom-shortcuts">
-    <a href="#home" class="shortcut-btn">Home</a>
-    <a href="#manifesto" class="shortcut-btn">Manifesto</a>
-  </div>
-
-  <!-- 💻 SCRIPT -->
-  <script src="script.js"></script>
+  <!-- Script -->
   <script>
-    // 🌸 Sakura Animation
-    const canvas = document.getElementById('sakuraCanvas');
-    const ctx = canvas.getContext('2d');
-    let petals = [];
-    const petalCount = 35;
+    function enlarge(img) {
+      const overlay = document.createElement("div");
+      overlay.style.position = "fixed";
+      overlay.style.top = 0;
+      overlay.style.left = 0;
+      overlay.style.width = "100vw";
+      overlay.style.height = "100vh";
+      overlay.style.background = "rgba(0,0,0,0.9)";
+      overlay.style.display = "flex";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.zIndex = 3000;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const bigImg = document.createElement("img");
+      bigImg.src = img.src;
+      bigImg.style.maxWidth = "90%";
+      bigImg.style.maxHeight = "90%";
+      bigImg.style.borderRadius = "1rem";
+      bigImg.style.boxShadow = "0 0 30px #fff";
+
+      overlay.appendChild(bigImg);
+      document.body.appendChild(overlay);
+
+      overlay.addEventListener("click", () => {
+        document.body.removeChild(overlay);
+      });
     }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Petal {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * -canvas.height;
-        this.size = Math.random() * 6 + 2;
-        this.speedY = Math.random() * 1 + 0.5;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.opacity = Math.random() * 0.5 + 0.3;
-      }
-      update() {
-        this.y += this.speedY;
-        this.x += this.speedX;
-        if (this.y > canvas.height || this.x < -50 || this.x > canvas.width + 50) {
-          this.reset();
-        }
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 182, 193, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
-
-    function animateSakura() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let p of petals) {
-        p.update();
-        p.draw();
-      }
-      requestAnimationFrame(animateSakura);
-    }
-
-    petals = Array.from({ length: petalCount }, () => new Petal());
-    animateSakura();
   </script>
 </body>
 </html>
