@@ -59,18 +59,42 @@ function enlarge(img) {
   overlay.addEventListener("click", () => {
     document.body.removeChild(overlay);
   });
-    }
+}
 
 // === 🌀 Scroll Reveal FX ===
 const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
 sections.forEach(section => observer.observe(section));
+
+// === 💻 Terminal Easter Egg ===
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey && e.key === "`") {
+    const terminal = document.createElement("div");
+    terminal.classList.add("terminal");
+    terminal.innerHTML = `
+      <pre>
+Cult of Panels [terminal]
+
+$ whoami
+You are Prajval, leader of the cult.
+
+$ fortune
+“In the void of panels, you found purpose.”
+
+$ logout
+      </pre>
+    `;
+    document.body.appendChild(terminal);
+    terminal.style.display = "block";
+    setTimeout(() => {
+      terminal.style.display = "none";
+      document.body.removeChild(terminal);
+    }, 10000);
+  }
+});
