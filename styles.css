@@ -1,5 +1,3 @@
-/* styles.css */
-
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -74,7 +72,7 @@ header {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .card-row {
@@ -103,16 +101,6 @@ header {
   width: 100%;
   border-radius: 8px;
   margin-bottom: 8px;
-}
-
-.card-title {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.card-status {
-  font-size: 0.9rem;
-  color: #a0a0a0;
 }
 
 .bottom-nav {
@@ -182,7 +170,6 @@ header {
   width: 100%;
 }
 
-/* Dashboard and Explore Enhancements */
 .user-info {
   display: flex;
   align-items: center;
@@ -224,10 +211,6 @@ header {
 .category-tabs button:hover {
   background-color: #4fd1c5;
   color: #000;
-}
-
-#dashboard-content .card-row {
-  margin-top: 10px;
 }
 
 @media (max-width: 600px) {
