@@ -1,63 +1,51 @@
-/* Base styles */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #0d0d15;
-  color: #ffffff;
+  background: #121212;
+  color: white;
 }
 
 .app-container {
-  padding: 1rem;
+  padding: 16px;
+  padding-bottom: 100px;
 }
 
-/* Header */
 header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .highlight {
   color: #4fd1c5;
-  font-weight: bold;
 }
 
 .settings-btn {
-  background: #4fd1c5;
-  border: none;
+  background: none;
+  color: #4fd1c5;
+  border: 1px solid #4fd1c5;
+  padding: 8px 12px;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
   cursor: pointer;
-  font-weight: bold;
-  color: #000;
-  margin-top: 1rem;
 }
 
-/* Navigation */
 .list-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .tab-btn {
-  background: #1a1a2e;
-  color: #fff;
+  background: #1e1e2e;
   border: 2px solid #4fd1c5;
-  border-radius: 12px;
-  padding: 0.6rem 1.2rem;
+  color: #4fd1c5;
+  padding: 10px 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-.tab-btn:hover {
-  background: #4fd1c5;
-  color: #000;
-}
-
-/* Sections */
 .tab-content {
-  margin-bottom: 5rem;
+  display: block;
 }
 
 .hidden {
@@ -66,88 +54,100 @@ header {
 
 .card-row {
   display: flex;
+  gap: 16px;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1rem 0;
 }
 
 .card {
-  background: #1a1a2e;
-  border: 2px solid #4fd1c5;
-  border-radius: 12px;
-  padding: 1rem;
-  width: calc(50% - 1rem);
+  background: #1e1e2e;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #4fd1c5;
+  width: 150px;
   text-align: center;
 }
 
-/* Bottom nav */
+/* Stylish Floating Bottom Navigation */
 .bottom-nav {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #121222;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e2e;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  border-top: 2px solid #4fd1c5;
+  gap: 10px;
+  padding: 12px 24px;
+  animation: floatUp 0.5s ease-out;
+  z-index: 1000;
 }
 
 .bottom-nav button {
   background: transparent;
-  color: #fff;
   border: 2px solid #4fd1c5;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
+  color: #4fd1c5;
+  padding: 10px 16px;
   font-weight: bold;
+  border-radius: 12px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.bottom-nav button.active-tab {
+.bottom-nav button:hover {
   background: #4fd1c5;
   color: #000;
-  box-shadow: 0 0 10px #4fd1c580;
 }
 
-/* Settings Popup Overlay */
-#settings-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+.active-tab {
+  background: #4fd1c5 !important;
+  color: #000 !important;
+  border-color: #4fd1c5 !important;
+  box-shadow: 0 0 10px #4fd1c599;
 }
 
-/* Initially hidden */
-#settings-overlay.hidden {
-  display: none;
+/* Floating animation */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
-/* Pop-up Panel */
+/* Settings Panel */
 .settings-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
   background: #1e1e2e;
-  padding: 2rem;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.8);
-  text-align: center;
+  border: 1px solid #4fd1c5;
+  border-radius: 12px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 0 20px #4fd1c599;
+  z-index: 1000;
 }
 
 .settings-option {
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
 .close-settings {
-  margin-top: 1rem;
   background: #4fd1c5;
   border: none;
-  color: #000;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Optional dark-theme placeholder */
+.dark-theme {
+  background: #000;
+  color: white;
 }
