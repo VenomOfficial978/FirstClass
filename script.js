@@ -2,17 +2,6 @@
 function showTab(tabName) {
   const tabs = ['home', 'anime', 'manga'];
 
-function toggleSettings() {
-  const panel = document.getElementById('settings-panel');
-  panel.classList.toggle('hidden');
-}
-
-// Optional: Dark mode toggle placeholder
-function toggleTheme() {
-  const isDark = document.body.classList.toggle('dark-theme');
-  alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented yet)`);
-}
-  
   tabs.forEach(tab => {
     const section = document.getElementById(tab);
     if (tab === tabName) {
@@ -22,7 +11,7 @@ function toggleTheme() {
     }
   });
 
-  // Optional: Highlight the active nav button
+  // Highlight active nav button
   document.querySelectorAll('.bottom-nav button').forEach(btn => {
     btn.classList.remove('active-tab');
   });
@@ -36,7 +25,19 @@ function toggleTheme() {
   document.querySelectorAll('.bottom-nav button')[tabButton[tabName]]?.classList.add('active-tab');
 }
 
-// Optional: Highlight active button style
+// Toggle settings panel
+function toggleSettings() {
+  const panel = document.getElementById('settings-panel');
+  panel.classList.toggle('hidden');
+}
+
+// Optional: Dark theme toggle (placeholder functionality)
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-theme');
+  alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented)`);
+}
+
+// Append active-tab styles dynamically (optional)
 const style = document.createElement('style');
 style.innerHTML = `
   .active-tab {
@@ -48,7 +49,7 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Default to home tab
+// Default to home tab on page load
 document.addEventListener('DOMContentLoaded', () => {
   showTab('home');
 });
