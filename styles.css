@@ -150,3 +150,50 @@ header {
   from { opacity: 0; transform: translate(-50%, -30%); }
   to { opacity: 1; transform: translate(-50%, -20%); }
 }
+
+/* --- Settings Panel: Pop-up Style --- */
+.settings-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--panel-bg, #222);
+  border: 2px solid #4fd1c5;
+  border-radius: 16px;
+  padding: 1rem;
+  z-index: 1000;
+  width: 250px;
+  box-shadow: 0 0 20px rgba(79, 209, 197, 0.3);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.settings-panel:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* --- Bottom Navigation: Stylish Floating Buttons --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f1f1f;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 0 0 12px #4fd1c5aa;
+  display: flex;
+  gap: 1.5rem;
+  z-index: 999;
+}
+
+/* Optional: Active Tab Glow */
+.active-tab {
+  background: #4fd1c5 !important;
+  color: #000 !important;
+  border-color: #4fd1c5 !important;
+  box-shadow: 0 0 10px #4fd1c599;
+}
