@@ -1,155 +1,103 @@
-:root {
-  --color-light-bg: #f0f0f0;
-  --color-dark-bg: #1e1e2f;
-  --color-neon-bg: #0f0f0f;
-
-  --color-light-text: #111;
-  --color-dark-text: #f0f0f0;
-  --color-neon-text: #39ff14;
-
-  --accent: #ff4081;
-  --accent-dark: #c60055;
-  --accent-neon: #39ff14;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  transition: background 0.3s, color 0.3s;
-}
-
-body.light {
-  background: var(--color-light-bg);
-  color: var(--color-light-text);
-}
-
-body.dark {
-  background: var(--color-dark-bg);
-  color: var(--color-dark-text);
-}
-
-body.neon {
-  background: var(--color-neon-bg);
-  color: var(--color-neon-text);
+  background: #0a0a0a;
+  color: white;
+  padding-bottom: 60px;
 }
 
 header {
+  background: linear-gradient(45deg, #3e0cff, #00c3ff);
+  padding: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background: var(--accent);
-  color: white;
-  font-size: 1.5rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  border-radius: 0 0 20px 20px;
 }
 
-header button {
-  font-size: 1.2rem;
-  background: transparent;
-  border: none;
-  color: white;
+.user-info h1 {
+  font-size: 1.8em;
+}
+.highlight {
+  color: #00ffff;
+}
+
+.settings-btn {
+  font-size: 1.5em;
   cursor: pointer;
 }
 
-main {
-  flex-grow: 1;
-  padding: 1.5rem;
-  overflow-y: auto;
-}
-
-footer {
-  background: var(--accent-dark);
-  padding: 0.8rem 0;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
-}
-
-.nav-bar {
+.tabs {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  gap: 1rem;
+  margin: 1em 0;
 }
-
-.nav-btn {
-  padding: 0.6rem 1.2rem;
-  background: #fff;
-  color: var(--accent-dark);
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-}
-
-.nav-btn:hover {
-  background: var(--accent);
+.tab {
+  flex: 1;
+  margin: 0 5px;
+  padding: 0.8em;
+  background: #1a1a1a;
   color: white;
-  transform: scale(1.05);
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
 }
-
-.home-btn {
-  font-size: 1.2rem;
-}
-
-.page {
-  display: none;
-  animation: fadeIn 0.4s ease-in-out forwards;
-}
-
-.page.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#settings-panel {
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  background: white;
+.tab.active {
+  background: #00c3ff;
   color: black;
-  border: 2px solid var(--accent);
-  padding: 1rem;
-  z-index: 100;
+  font-weight: bold;
+}
+
+.content {
+  padding: 1em;
+}
+.card-row {
+  display: flex;
+  gap: 1em;
+  overflow-x: auto;
+  padding-bottom: 1em;
+}
+.card {
+  flex: 0 0 150px;
+  background: #111;
+  border-radius: 12px;
+  padding: 1em;
+  text-align: center;
+  box-shadow: 0 0 10px #00ffff40;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.6em 0;
+  border-top: 2px solid #00ffff55;
+}
+.nav-btn {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.nav-btn.active {
+  color: #00c3ff;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #111;
+  border: 2px solid #00ffff70;
+  padding: 1em;
   border-radius: 12px;
   display: none;
-  box-shadow: 0 0 12px rgba(0,0,0,0.25);
-}
-
-#settings-panel.show {
-  display: block;
-}
-
-#theme-select {
-  margin-top: 0.5rem;
-  padding: 0.4rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-body.neon header,
-body.neon footer {
-  background: #111;
-}
-
-body.neon .nav-btn {
-  background: #222;
-  color: var(--accent-neon);
-  border: 1px solid var(--accent-neon);
-}
-
-body.neon .nav-btn:hover {
-  background: var(--accent-neon);
-  color: #000;
-}
-
-body.neon #settings-panel {
-  background: #111;
-  color: var(--accent-neon);
-  border-color: var(--accent-neon);
+  z-index: 10;
 }
