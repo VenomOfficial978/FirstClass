@@ -6,50 +6,6 @@
   <title>Cult of Panels</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <style>
-    /* Simplified Compact Buttons */
-    .shortcut-bar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #1f1f2f;
-      display: flex;
-      justify-content: space-around;
-      padding: 0.75rem 0;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.7);
-      z-index: 1500;
-    }
-    .shortcut-icon {
-      color: #a29bfe;
-      font-size: 1.3rem;
-      text-align: center;
-      flex: 1;
-      transition: transform 0.2s ease;
-    }
-    .shortcut-icon:hover {
-      transform: scale(1.2);
-      color: #fff;
-    }
-    .top-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .top-buttons a {
-      padding: 0.5rem 1rem;
-      background-color: #a29bfe;
-      color: #000;
-      font-weight: bold;
-      border-radius: 8px;
-      box-shadow: 0 0 12px #6c5ce7aa;
-      transition: all 0.3s ease;
-    }
-    .top-buttons a:hover {
-      background-color: #fff;
-      color: #6c5ce7;
-    }
-  </style>
 </head>
 <body>
 
@@ -88,8 +44,65 @@
     <a href="#manga-list" class="shortcut-icon"><i class="fas fa-book-open"></i></a>
   </div>
 
-  <!-- Script -->
+  <!-- Settings Toggle Button -->
+  <button id="settingsToggleBtn" aria-label="Toggle Settings">
+    <i class="fas fa-cog"></i>
+  </button>
+
+  <!-- Settings Panel -->
+  <aside id="settingsPanel" aria-label="Settings Panel" style="display:none; position: fixed; top: 10%; right: 1rem; width: 320px; background: rgba(30,30,45,0.95); border-radius: 12px; padding: 1rem 1.5rem; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; z-index: 5000; flex-direction: column; gap: 1rem;">
+    
+    <!-- Themes -->
+    <div>
+      <h3>Themes</h3>
+      <label for="themeSelect">Choose Theme:</label>
+      <select id="themeSelect" name="themeSelect">
+        <option value="light">Light</option>
+        <option value="dark" selected>Dark</option>
+        <option value="retro">Retro</option>
+      </select>
+    </div>
+
+    <!-- Manga Settings -->
+    <div>
+      <h3>Manga Settings</h3>
+      <label for="mangaSpeed">Panel Animation Speed (ms): <span id="mangaSpeedVal">500</span></label>
+      <input type="range" id="mangaSpeed" name="mangaSpeed" min="100" max="2000" step="100" value="500" />
+
+      <label for="mangaLayout">Page Layout:</label>
+      <select id="mangaLayout" name="mangaLayout">
+        <option value="single">Single Page</option>
+        <option value="double" selected>Double Page</option>
+        <option value="scroll">Scroll</option>
+      </select>
+    </div>
+
+    <!-- Anime Settings -->
+    <div>
+      <h3>Anime Settings</h3>
+      <label for="animeSpeed">Playback Speed: <span id="animeSpeedVal">1x</span></label>
+      <input type="range" id="animeSpeed" name="animeSpeed" min="0.5" max="3" step="0.1" value="1" />
+
+      <label><input type="checkbox" id="toggleSubs" checked /> Enable Subtitles</label>
+    </div>
+
+    <!-- General -->
+    <div>
+      <h3>General</h3>
+      <label><input type="checkbox" id="toggleSound" checked /> Enable Sound Effects</label>
+      <label><input type="checkbox" id="toggleNotifications" /> Enable Notifications</label>
+
+      <label for="fontSizeSelect">Font Size:</label>
+      <select id="fontSizeSelect" name="fontSizeSelect">
+        <option value="small">Small</option>
+        <option value="medium" selected>Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+  </aside>
+
   <script>
+    // Enlarge image on click (existing)
     function enlarge(img) {
       const overlay = document.createElement("div");
       overlay.style.position = "fixed";
@@ -117,6 +130,30 @@
         document.body.removeChild(overlay);
       });
     }
+
+    // Toggle settings panel visibility
+    const settingsBtn = document.getElementById('settingsToggleBtn');
+    const settingsPanel = document.getElementById('settingsPanel');
+    settingsBtn.addEventListener('click', () => {
+      settingsPanel.style.display = settingsPanel.style.display === 'flex' ? 'none' : 'flex';
+      if(settingsPanel.style.display === 'flex') {
+        settingsPanel.style.flexDirection = 'column'; // maintain flex direction when visible
+      }
+    });
+
+    // Update manga speed display
+    const mangaSpeed = document.getElementById('mangaSpeed');
+    const mangaSpeedVal = document.getElementById('mangaSpeedVal');
+    mangaSpeed.addEventListener('input', e => {
+      mangaSpeedVal.textContent = e.target.value;
+    });
+
+    // Update anime speed display
+    const animeSpeed = document.getElementById('animeSpeed');
+    const animeSpeedVal = document.getElementById('animeSpeedVal');
+    animeSpeed.addEventListener('input', e => {
+      animeSpeedVal.textContent = e.target.value + "x";
+    });
   </script>
 </body>
-</html>
+  </html>
