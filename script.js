@@ -1,15 +1,11 @@
-// Handle tab switching
+// ===== TAB SWITCHING =====
 function showTab(tabName) {
   const tabs = ['home', 'animeExplore', 'mangaExplore'];
 
   tabs.forEach(tab => {
     const section = document.getElementById(tab);
     if (section) {
-      if (tab === tabName) {
-        section.classList.remove('hidden');
-      } else {
-        section.classList.add('hidden');
-      }
+      section.classList.toggle('hidden', tab !== tabName);
     }
   });
 
@@ -17,28 +13,18 @@ function showTab(tabName) {
     btn.classList.remove('active-tab');
   });
 
-  const tabButton = {
-    animeExplore: 1,
-    home: 0,
-    mangaExplore: 2,
-  };
-
-  document.querySelectorAll('.bottom-nav button')[tabButton[tabName]]?.classList.add('active-tab');
+  const tabIndex = { home: 0, animeExplore: 1, mangaExplore: 2 };
+  document.querySelectorAll('.bottom-nav button')[tabIndex[tabName]]?.classList.add('active-tab');
 }
 
-// Handle dashboard switching
+// ===== DASHBOARD SWITCHING =====
 function showDashboard(section) {
-  const sections = ['animeDashboard', 'mangaDashboard'];
-
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.add('hidden');
-  });
-
-  const target = document.getElementById(section);
-  if (target) target.classList.remove('hidden');
+  const dashboards = ['animeDashboard', 'mangaDashboard'];
+  dashboards.forEach(id => document.getElementById(id)?.classList.add('hidden'));
+  document.getElementById(section)?.classList.remove('hidden');
 }
 
+// ===== SETTINGS PANEL =====
 function toggleSettings() {
   const panel = document.getElementById('settings-panel');
   panel.classList.toggle('visible');
@@ -50,7 +36,7 @@ function toggleTheme() {
   alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented yet)`);
 }
 
-// Add styles for active tab
+// ===== STYLES FOR ACTIVE TAB =====
 const style = document.createElement('style');
 style.innerHTML = `
   .active-tab {
@@ -62,6 +48,70 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+// ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   showTab('home');
+});
+
+// ===== ANILIST API INTEGRATION =====
+const clientId = '27691';
+const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
+
+function authenticateWithAniList() {
+  const url = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&response_type=token`;
+  window.location.href = url;
+}
+
+function getTokenFromUrl() {
+  const hash = window.location.hash;
+  if (hash.includes('access_token')) {
+    const params = new URLSearchParams(hash.substring(1));
+    const token = params.get('access_token');
+    localStorage.setItem('anilist_token', token);
+    window.location.hash = '';
+    return token;
+  }
+  return localStorage.getItem('anilist_token');
+}
+
+async function fetchUserData(token) {
+  const query = `
+    query {
+      Viewer {
+        id
+        name
+        avatar { large }
+        statistics {
+          anime { count episodesWatched minutesWatched }
+          manga { count chaptersRead }
+        }
+      }
+    }
+  `;
+
+  const response = await fetch('https://graphql.anilist.co', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ query })
+  });
+
+  const { data } = await response.json();
+  if (data?.Viewer) {
+    document.querySelector('.username span').textContent = data.Viewer.name;
+    document.querySelector('#user-avatar').src = data.Viewer.avatar.large;
+    document.querySelector('#anime-stats').textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
+    document.querySelector('#manga-stats').textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
+  }
+}
+
+// ===== MAIN LOGIN FLOW =====
+document.addEventListener('DOMContentLoaded', async () => {
+  showTab('home');
+  const token = getTokenFromUrl();
+  if (token) {
+    await fetchUserData(token);
+  } else {
+    // Optional: Auto prompt login if no token found
+    // authenticateWithAniList();
+  }
 });
