@@ -1,42 +1,75 @@
+// ====== TOKEN SETUP ======
 let accessToken = null;
 
-// Extract token from URL hash
-if (window.location.hash) {
-  const hash = window.location.hash.substring(1); // Remove '#'
+// Extract token from URL hash (after AniList login)
+if (window.location.hash.includes('access_token')) {
+  const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
   accessToken = params.get('access_token');
 
   if (accessToken) {
     localStorage.setItem('anilist_token', accessToken);
-    window.location.hash = ''; // Clean up URL
+    window.location.hash = ''; // Clean URL
   }
-}
-
-// Load token from localStorage if available
-if (!accessToken) {
+} else {
   accessToken = localStorage.getItem('anilist_token');
 }
 
-// Optionally update UI
+// Update UI if logged in
 if (accessToken) {
   document.querySelector('.username').innerHTML = 'Welcome, <span class="highlight">User</span>';
   document.getElementById('login-button').innerText = '✅ Logged In';
+  fetchUserData(accessToken);
 }
 
-// ===== TAB SWITCHING =====
-function showTab(tabName) {
-  const tabs = ['home', 'explore-anime', 'explore-manga'];
-  tabs.forEach(tab => {
-    const section = document.getElementById(tab);
-    if (section) section.classList.toggle('hidden', tab !== tabName);
-  });
-
-  document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active-tab'));
-  const tabIndex = { home: 0, 'explore-anime': 1, 'explore-manga': 2 };
-  document.querySelectorAll('.bottom-nav button')[tabIndex[tabName]]?.classList.add('active-tab');
+// ====== LOGIN ======
+function authenticateWithAniList() {
+  const clientId = 27691;
+  const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
+  const authUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
+  window.location.href = authUrl;
 }
 
-// ===== DASHBOARD SWITCHING =====
+// ====== USER DATA FETCH ======
+async function fetchUserData(token) {
+  const query = `
+    query {
+      Viewer {
+        name
+        avatar { large }
+        statistics {
+          anime { count }
+          manga { count }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ query })
+    });
+
+    const { data } = await response.json();
+
+    if (data?.Viewer) {
+      document.querySelector('.username span').textContent = data.Viewer.name;
+      document.querySelector('#user-avatar').src = data.Viewer.avatar.large;
+      document.querySelector('#user-name').textContent = data.Viewer.name;
+      document.querySelector('#anime-stats').textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
+      document.querySelector('#manga-stats').textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
+    }
+  } catch (err) {
+    console.error('Failed to fetch user data:', err);
+  }
+}
+
+// ====== DASHBOARD CATEGORY SWITCH ======
 function showLibraryTab(type) {
   const dashboard = document.getElementById('dashboard');
   dashboard.classList.remove('hidden');
@@ -81,10 +114,7 @@ function switchCategory(category) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     },
-    body: JSON.stringify({
-      query,
-      variables: { type: mediaType, status }
-    })
+    body: JSON.stringify({ query, variables: { type: mediaType, status } })
   })
     .then(res => res.json())
     .then(res => {
@@ -107,7 +137,20 @@ function switchCategory(category) {
     });
 }
 
-// ===== SETTINGS PANEL =====
+// ====== UI TABS & NAVIGATION ======
+function showTab(tabName) {
+  const tabs = ['home', 'explore-anime', 'explore-manga'];
+  tabs.forEach(tab => {
+    const section = document.getElementById(tab);
+    if (section) section.classList.toggle('hidden', tab !== tabName);
+  });
+
+  document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active-tab'));
+  const tabIndex = { home: 0, 'explore-anime': 1, 'explore-manga': 2 };
+  document.querySelectorAll('.bottom-nav button')[tabIndex[tabName]]?.classList.add('active-tab');
+}
+
+// ====== SETTINGS PANEL ======
 function toggleSettings() {
   const panel = document.getElementById('settings-panel');
   panel.classList.toggle('visible');
@@ -119,74 +162,7 @@ function toggleTheme() {
   alert(`Theme changed to ${isDark ? 'Dark' : 'Light'} (not fully implemented yet)`);
 }
 
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
-  showTab('home');
-  const token = getTokenFromUrl();
-  if (token) {
-    localStorage.setItem('anilist_token', token);
-    fetchUserData(token);
-    window.history.replaceState({}, document.title, window.location.pathname);
-  } else {
-    const saved = localStorage.getItem('anilist_token');
-    if (saved) fetchUserData(saved);
-  }
-});
-
-// ===== ANILIST LOGIN =====
-const clientId = '27691';
-const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
-
-function authenticateWithAniList() {
-  const clientId = 27691;
-  const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
-  const authUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`;
-
-  window.location.href = authUrl;
-}
-
-function getTokenFromUrl() {
-  const hash = window.location.hash;
-  if (hash.includes('access_token')) {
-    const params = new URLSearchParams(hash.substring(1));
-    return params.get('access_token');
-  }
-  return null;
-}
-
-async function fetchUserData(token) {
-  const query = `
-    query {
-      Viewer {
-        name
-        avatar { large }
-        statistics {
-          anime { count }
-          manga { count }
-        }
-      }
-    }
-  `;
-
-  const response = await fetch('https://graphql.anilist.co', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ query })
-  });
-
-  const { data } = await response.json();
-  if (data?.Viewer) {
-    document.querySelector('.username span').textContent = data.Viewer.name;
-    document.querySelector('#user-avatar').src = data.Viewer.avatar.large;
-    document.querySelector('#user-name').textContent = data.Viewer.name;
-    document.querySelector('#anime-stats').textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
-    document.querySelector('#manga-stats').textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
-  }
-}
-
+// ====== SYNC BUTTON ======
 function syncAniList() {
   const token = localStorage.getItem('anilist_token');
   if (token) fetchUserData(token);
