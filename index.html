@@ -3,61 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AnimeManga Tracker</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <script defer src="script.js"></script>
+  <title>AniTrack</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div class="app-container">
     <header>
-      <h1 class="username">Volthaar</h1>
-      <p>📽️ Episodes: <span class="highlight">3924</span></p>
-      <p>📖 Chapters: <span class="highlight">55776</span></p>
+      <div class="username">Welcome, <span class="highlight">Guest</span></div>
+      <p>Login with AniList to load your library</p>
     </header>
 
     <div class="list-buttons">
-      <button class="tab-btn" onclick="showTab('anime')">ANIME LIST</button>
-      <button class="tab-btn" onclick="showTab('manga')">MANGA LIST</button>
+      <button class="tab-btn" onclick="showTab('anime')">Anime</button>
+      <button class="tab-btn" onclick="showTab('manga')">Manga</button>
     </div>
 
     <section id="home" class="tab-content">
       <h2>Continue Watching</h2>
       <div class="card-row">
-        <div class="card">I'm the Evil Lord...</div>
-        <div class="card">Reincarnated Slime</div>
-        <div class="card">Renegade Immortal</div>
+        <div class="card">No anime loaded</div>
       </div>
 
-      <h2>Favourite Anime</h2>
+      <h2>Continue Reading</h2>
       <div class="card-row">
-        <div class="card">Chainsaw Man</div>
-        <div class="card">The Eminence in Shadow</div>
+        <div class="card">No manga loaded</div>
       </div>
     </section>
 
     <section id="anime" class="tab-content hidden">
-      <h2>Anime List</h2>
-      <ul>
-        <li>Solo Leveling</li>
-        <li>Attack on Titan</li>
-        <li>Frieren</li>
-      </ul>
+      <h2>Your Anime List</h2>
+      <div class="card-row">
+        <div class="card">No anime available</div>
+      </div>
     </section>
 
     <section id="manga" class="tab-content hidden">
-      <h2>Manga List</h2>
-      <ul>
-        <li>Vagabond</li>
-        <li>Oyasumi Punpun</li>
-        <li>Tokyo Revengers</li>
-      </ul>
+      <h2>Your Manga List</h2>
+      <div class="card-row">
+        <div class="card">No manga available</div>
+      </div>
     </section>
-
-    <footer class="bottom-nav">
-      <button onclick="showTab('anime')">📺 Anime</button>
-      <button onclick="showTab('home')" class="home-btn">🏠 Home</button>
-      <button onclick="showTab('manga')">📚 Manga</button>
-    </footer>
   </div>
+
+  <nav class="bottom-nav">
+    <button class="home-btn" onclick="showTab('home')">Home</button>
+    <button onclick="showTab('anime')">Anime</button>
+    <button onclick="showTab('manga')">Manga</button>
+  </nav>
+
+  <script src="./script.js"></script>
 </body>
 </html>
