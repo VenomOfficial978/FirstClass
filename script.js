@@ -1,6 +1,6 @@
 // ===== TAB SWITCHING =====
 function showTab(tabName) {
-  const tabs = ['home', 'animeExplore', 'mangaExplore'];
+  const tabs = ['home', 'explore-anime', 'explore-manga'];
 
   tabs.forEach(tab => {
     const section = document.getElementById(tab);
@@ -13,15 +13,83 @@ function showTab(tabName) {
     btn.classList.remove('active-tab');
   });
 
-  const tabIndex = { home: 0, animeExplore: 1, mangaExplore: 2 };
+  const tabIndex = {
+    home: 0,
+    'explore-anime': 1,
+    'explore-manga': 2
+  };
   document.querySelectorAll('.bottom-nav button')[tabIndex[tabName]]?.classList.add('active-tab');
 }
 
 // ===== DASHBOARD SWITCHING =====
-function showDashboard(section) {
-  const dashboards = ['animeDashboard', 'mangaDashboard'];
-  dashboards.forEach(id => document.getElementById(id)?.classList.add('hidden'));
-  document.getElementById(section)?.classList.remove('hidden');
+function showLibraryTab(type) {
+  const dashboard = document.getElementById('dashboard');
+  dashboard.classList.remove('hidden');
+  dashboard.dataset.type = type;
+  document.getElementById('dashboard-content').innerHTML = `<p>Select a category to view your ${type} list.</p>`;
+}
+
+function switchCategory(category) {
+  const type = document.getElementById('dashboard').dataset.type;
+  const token = localStorage.getItem('anilist_token');
+  if (!token || !type) return;
+
+  const mediaType = type === 'anime' ? 'ANIME' : 'MANGA';
+  const statusMap = {
+    watching: 'CURRENT',
+    completed: 'COMPLETED',
+    on_hold: 'PAUSED',
+    dropped: 'DROPPED',
+    plan_to_watch: 'PLANNING'
+  };
+
+  const status = statusMap[category];
+
+  const query = `
+    query ($type: MediaType, $status: MediaListStatus) {
+      MediaListCollection(type: $type, status: $status) {
+        lists {
+          entries {
+            media {
+              title { romaji }
+              coverImage { medium }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  fetch('https://graphql.anilist.co', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      query,
+      variables: { type: mediaType, status }
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      const entries =
+        res.data.MediaListCollection.lists?.flatMap(list => list.entries) || [];
+      const container = document.getElementById('dashboard-content');
+      if (!entries.length) {
+        container.innerHTML = `<p>No ${type} found in ${category} category.</p>`;
+        return;
+      }
+      container.innerHTML = entries
+        .map(
+          item => `
+        <div class="card">
+          <img src="${item.media.coverImage.medium}" alt="Cover" style="width:100%;border-radius:8px" />
+          <p>${item.media.title.romaji}</p>
+        </div>`
+        )
+        .join('');
+    });
 }
 
 // ===== SETTINGS PANEL =====
@@ -49,8 +117,10 @@ style.innerHTML = `
 document.head.appendChild(style);
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   showTab('home');
+  const token = getTokenFromUrl();
+  if (token) await fetchUserData(token);
 });
 
 // ===== ANILIST API INTEGRATION =====
@@ -58,7 +128,7 @@ const clientId = '27691';
 const redirectUri = 'https://venomofficial978.github.io/FirstClass/';
 
 function authenticateWithAniList() {
-  const url = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&response_type=token`;
+  const url = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientId}&response_type=token&redirect_uri=${redirectUri}`;
   window.location.href = url;
 }
 
@@ -99,19 +169,13 @@ async function fetchUserData(token) {
   if (data?.Viewer) {
     document.querySelector('.username span').textContent = data.Viewer.name;
     document.querySelector('#user-avatar').src = data.Viewer.avatar.large;
+    document.querySelector('#user-name').textContent = data.Viewer.name;
     document.querySelector('#anime-stats').textContent = `${data.Viewer.statistics.anime.count} Anime Watched`;
     document.querySelector('#manga-stats').textContent = `${data.Viewer.statistics.manga.count} Manga Read`;
   }
 }
 
-// ===== MAIN LOGIN FLOW =====
-document.addEventListener('DOMContentLoaded', async () => {
-  showTab('home');
-  const token = getTokenFromUrl();
-  if (token) {
-    await fetchUserData(token);
-  } else {
-    // Optional: Auto prompt login if no token found
-    // authenticateWithAniList();
-  }
-});
+function syncAniList() {
+  const token = localStorage.getItem('anilist_token');
+  if (token) fetchUserData(token);
+}
